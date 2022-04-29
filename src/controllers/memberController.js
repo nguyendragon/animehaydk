@@ -1,8 +1,50 @@
 import { logPlugin } from '@babel/preset-env/lib/debug';
 import connection from '../configs/connectDB';
+const nodemailer = require("nodemailer");
 var jwt = require('jsonwebtoken');
 require('dotenv').config();
 let md5 = require('md5');
+
+const Mailer = async(mailer, otpCreate) => {
+    const email = mailer;
+    const otp = otpCreate;
+    let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "ridashopveri@gmail.com", // generated ethereal user
+            pass: "Long2k3dx0", // generated ethereal password
+        },
+    });
+
+    // send mail with defined transport object
+    await transporter.sendMail({
+        from: 'Verification RidaShop', // sender address
+        to: `${email}`, // list of receivers
+        subject: "RidaShop - Verification code", // Subject line
+        text: `
+        Dear Customer,<br>
+        Rất cảm ơn bạn đã quan tâm đến các dịch vụ của RidaShop. Hãy xác nhận địa chỉ email bằng mã xác thực sau: <br>
+        <h1>${otp}</h1><br>
+        Xin chân thành cảm ơn.
+        `, // plain text body
+        html: `
+        Dear Customer,<br>
+        Rất cảm ơn bạn đã quan tâm đến các dịch vụ của Rida Shop. Hãy xác nhận địa chỉ email bằng mã xác thực sau: <br>
+        <h1>${otp}</h1><br>
+        Xin chân thành cảm ơn.
+        `, // html body
+    }, (err) => {
+        if (err) {
+            return res.json({
+                message: "Lỗi",
+            });
+        } else {
+            return res.json({
+                message: "success",
+            });
+        }
+    });
+}
 
 const getPageMember = async(req, res) => {
     var tokenUser = req.cookies.token;
@@ -205,6 +247,7 @@ const addBanking = async(req, res) => {
     var otp = Math.floor(Math.random() * (999999 - 100000)) + 100000;
     if (grid_banking) {
         await connection.execute('UPDATE `users` SET `otp` = ?, `sented` = 0 WHERE `phone_login` = ?', [otp, phone_login]);
+        await Mailer(phone_login, otp);
         res.end('{"message": 1}');
     }
     // 1. Thành công 
@@ -562,8 +605,13 @@ const handlingwithdraw = async(req, res) => {
             } else {
                 await connection.execute('UPDATE `users` SET `money` = ? WHERE `phone_login` = ? ', [results[0].money - money, phone_login]);
                 await connection.execute('INSERT INTO `financial_details` SET `phone_login` = ?, `loai` = ?, `money` = ?, `time` = ?', [phone_login, 5, money, time]);
-                var sql = 'INSERT INTO `withdraw` SET `phone_login` = ?, `id_don` = ?, `name_banking` = ?, `stk` = ?, `money` = ?, `realmoney` = ?, `fee` = ?, `status` = 0, `time` = ? ';
-                await connection.execute(sql, [phone_login, id_txn, banking[0].name_banking, banking[0].stk, money, realmoney, total_fee, time]);
+                try {
+                    await connection.execute('INSERT INTO `withdraw` SET `phone_login` = ?, `id_don` = ?, `name_banking` = ?, `stk` = ?, `money` = ?, `realmoney` = ?, `fee` = ?, `status` = 0, `time` = ? ', [phone_login, id_txn, banking[0].name_banking, banking[0].stk, money, realmoney, total_fee, time]);
+                } catch (error) {
+                    if (error) {
+                        console.log(error);
+                    }
+                }
                 res.end('{"message": 1}');
             }
         } else {

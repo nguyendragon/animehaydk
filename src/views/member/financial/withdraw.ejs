@@ -198,7 +198,7 @@
                 const d = new Date();
                 let h = d.getHours();
                 console.log(h);
-                if (checkType && money != "" && money <= 50000000 && password_payment != "" && h < 21 && h >= 10) {
+                if (checkType && money != "" && money <= 50000000 && password_payment != "") {
                     $.ajax({
                         type: "POST",
                         url: "/financial/withdraw",
@@ -229,6 +229,9 @@
                                 $(".van-toast--text").fadeIn(200);
                                 setTimeout(() => {
                                     $(".van-toast--text").fadeOut();
+                                    setTimeout(() => {
+                                        location.href = "/member/ChangePaymentPassword";
+                                    }, 500);
                                 }, 1000);
                             } else if (response.message == 4) {
                                 $(".van-toast--text .van-toast__text").text('Mật khẩu thanh toán không chính xác');

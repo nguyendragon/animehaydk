@@ -168,28 +168,34 @@ const JoinParity = async(req, res) => {
 
         if (user[0].lever != "admin" && user[0].lever != "boss") {
             const [get_phone_user] = await connection.execute('SELECT `phone_login`, `ma_gt_f1`, `lever` FROM `users` WHERE `ma_gt` = ? AND `veri` = 1', [ma_gt_f1]);
-            const maGTf1 = get_phone_user[0].ma_gt_f1; // lấy ra mã gt f1
-            const phone_login_f1 = get_phone_user[0].phone_login; // lấy ra số điện thoại f1
-            const [get_phone_f2] = await connection.execute('SELECT `phone_login` FROM `users` WHERE `ma_gt` = ? AND `veri` = 1', [maGTf1]);
+            if (get_phone_user.length > 0) {
+                const maGTf1 = get_phone_user[0].ma_gt_f1; // lấy ra mã gt f1
+                const phone_login_f1 = get_phone_user[0].phone_login; // lấy ra số điện thoại f1
+                const [get_phone_f2] = await connection.execute('SELECT `phone_login` FROM `users` WHERE `ma_gt` = ? AND `veri` = 1', [maGTf1]);
 
 
-            // update wallet_bonus_f1
-            const [wallet_bonus_f1] = await connection.execute('SELECT `money`, `ref_f1`, `ref_f2` FROM `wallet_bonus` WHERE `phone_login` = ?', [phone_login_f1]);
+                // update wallet_bonus_f1
+                const [wallet_bonus_f1] = await connection.execute('SELECT `money`, `ref_f1`, `ref_f2` FROM `wallet_bonus` WHERE `phone_login` = ?', [phone_login_f1]);
 
-            // get tien f1
-            var total_money_f1 = wallet_bonus_f1[0].money;
-            var total_ref_f1 = wallet_bonus_f1[0].ref_f1;
+                if (wallet_bonus_f1.length > 0) {
+                    // get tien f1
+                    var total_money_f1 = wallet_bonus_f1[0].money;
+                    var total_ref_f1 = wallet_bonus_f1[0].ref_f1;
 
-            // update wallet_bonus f1
-            await connection.execute('UPDATE `wallet_bonus` SET `money` = ?, `ref_f1` = ? WHERE `phone_login` = ?', [total_money_f1 + hh_f1, total_ref_f1 + hh_f1, phone_login_f1]);
-            if (get_phone_f2.length > 0) {
-                const phone_login_f2 = get_phone_f2[0].phone_login; // lấy ra số điện thoại f2
-                const [wallet_bonus_f2] = await connection.execute('SELECT `money`, `ref_f1`, `ref_f2` FROM `wallet_bonus` WHERE `phone_login` = ?', [phone_login_f2]);
-                // get tien f2
-                var total_money_f2 = wallet_bonus_f2[0].money;
-                var total_ref_f2 = wallet_bonus_f2[0].ref_f2;
-                // update wallet_bonus_f2
-                await connection.execute('UPDATE `wallet_bonus` SET `money` = ?, `ref_f2` = ? WHERE `phone_login` = ?', [total_money_f2 + hh_f2, total_ref_f2 + hh_f2, phone_login_f2]);
+                    // update wallet_bonus f1
+                    await connection.execute('UPDATE `wallet_bonus` SET `money` = ?, `ref_f1` = ? WHERE `phone_login` = ?', [total_money_f1 + hh_f1, total_ref_f1 + hh_f1, phone_login_f1]);
+                    if (get_phone_f2.length > 0) {
+                        const phone_login_f2 = get_phone_f2[0].phone_login; // lấy ra số điện thoại f2
+                        const [wallet_bonus_f2] = await connection.execute('SELECT `money`, `ref_f1`, `ref_f2` FROM `wallet_bonus` WHERE `phone_login` = ?', [phone_login_f2]);
+                        // get tien f2
+                        if (wallet_bonus_f2.length > 0) {
+                            var total_money_f2 = wallet_bonus_f2[0].money;
+                            var total_ref_f2 = wallet_bonus_f2[0].ref_f2;
+                            // update wallet_bonus_f2
+                            await connection.execute('UPDATE `wallet_bonus` SET `money` = ?, `ref_f2` = ? WHERE `phone_login` = ?', [total_money_f2 + hh_f2, total_ref_f2 + hh_f2, phone_login_f2]);
+                        }
+                    }
+                }
             }
         }
 

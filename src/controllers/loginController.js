@@ -1,4 +1,5 @@
 import connection from '../configs/connectDB';
+const nodemailer = require("nodemailer");
 var jwt = require('jsonwebtoken');
 let md5 = require('md5');
 require('dotenv').config();
@@ -40,23 +41,68 @@ const loginFunc = async(req, res) => {
     }
 }
 
+function validateEmail(email) {
+    var pattern = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return (pattern.test(email));
+}
+
+const Mailer = async(mailer, otpCreate) => {
+    const email = mailer;
+    const otp = otpCreate;
+    let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "ridashopveri@gmail.com", // generated ethereal user
+            pass: "Long2k3dx0", // generated ethereal password
+        },
+    });
+
+    // send mail with defined transport object
+    await transporter.sendMail({
+        from: 'Verification RidaShop', // sender address
+        to: `${email}`, // list of receivers
+        subject: "RidaShop - Verification code", // Subject line
+        text: `
+        Dear Customer,<br>
+        Rất cảm ơn bạn đã quan tâm đến các dịch vụ của RidaShop. Hãy xác nhận địa chỉ email bằng mã xác thực sau: <br>
+        <h1>${otp}</h1><br>
+        Xin chân thành cảm ơn.
+        `, // plain text body
+        html: `
+        Dear Customer,<br>
+        Rất cảm ơn bạn đã quan tâm đến các dịch vụ của Rida Shop. Hãy xác nhận địa chỉ email bằng mã xác thực sau: <br>
+        <h1>${otp}</h1><br>
+        Xin chân thành cảm ơn.
+        `, // html body
+    }, (err) => {
+        if (err) {
+            return res.json({
+                message: "Lỗi",
+            });
+        } else {
+            return res.json({
+                message: "success",
+            });
+        }
+    });
+}
+
 // Gửi OTP
 const sendOTP = async(req, res) => {
     let phone_signup = req.body.phone_signup;
+    let checkMail = validateEmail(phone_signup);
     let ip = req.body.ip;
     let otp = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-    if (phone_signup.length == 9) {
+    if (phone_signup.length > 15 && checkMail) {
         const [result] = await connection.execute('SELECT * FROM `users` WHERE `phone_login` = ?', [phone_signup]);
         const [checkIP] = await connection.execute('SELECT `ip` FROM `users` WHERE `ip` = ?', [ip]);
         if (result.length == 0) {
-            if (checkIP.length > 2) {
-                res.end('{"message": "error"}');
-            } else {
-                await connection.execute('INSERT INTO `users` SET `phone_login` = ?, `token` = ?, `ip` = ?, `otp` = ?', [phone_signup, "0", ip, otp]);
-                res.end('{"message": 1}');
-            }
+            await connection.execute('INSERT INTO `users` SET `phone_login` = ?, `token` = ?, `ip` = ?, `otp` = ?', [phone_signup, "0", ip, otp]);
+            await Mailer(phone_signup, otp);
+            res.end('{"message": 1}');
         } else if (result.length != 0) {
             await connection.execute('UPDATE `users` SET `sented` = 0, `otp` = ? WHERE `phone_login` = ? ', [otp, phone_signup]);
+            await Mailer(phone_signup, otp);
             res.end('{"message": 1}');
         }
     } else {
@@ -81,7 +127,7 @@ const register = async(req, res) => {
     var MaGioiThieu = req.body.MaGioiThieu;
     var otp = Math.floor(Math.random() * (999999 - 100000)) + 100000;
     let MaGioiThieu_User = Math.floor(Math.random() * (9999999 - 1000000)) + 1000000;
-    let name_user = "Member" + phone_signup.substring(5);
+    let name_user = "Member" + (Math.floor(Math.random() * (9999 - 1000)) + 1000);
 
     // lấy ra số tiền khuyến mãi trong temp
     const [money_temp] = await connection.execute("SELECT `khuyen_mai` FROM `temp`", []);

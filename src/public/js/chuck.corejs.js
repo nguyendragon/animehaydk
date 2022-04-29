@@ -55,6 +55,7 @@ $(document).ready(function() {
         let data = await response;
         $('#ip').text(data.ip);
     }
+
     const token = "Bearer " + localStorage.getItem('token');
     ipClients();
 
@@ -64,7 +65,9 @@ $(document).ready(function() {
         let expires = "expires=" + d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
+
     $('.login_check').click(function(e) {
+        console.log();
         e.preventDefault();
         const phone_login = $('#phone_login').val().trim();
         const password_login = $('#pass_login').val().trim();
@@ -145,14 +148,21 @@ $(document).ready(function() {
         }
 
     });
+
+    function validateEmail(email) {
+        var pattern = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        return (pattern.test(email));
+    }
     /**************************************************************/
     $('.register-button__otp').click(function(e) {
         e.preventDefault();
         $(this).attr('disabled', 'disabled');
         const phone_signup = $('.Nationalarea-input').val().trim();
+        const checkMail = validateEmail(phone_signup);
+        console.log(checkMail);
         const ip = $('#ip').text();
         let length_input = phone_signup.length;
-        if (phone_signup != '' && length_input > 8 && length_input < 10) {
+        if (phone_signup != '' && length_input > 8 && length_input > 15 && checkMail) {
             var settings = {
                 "url": "/account/otpsignup",
                 "method": "POST",
@@ -189,12 +199,17 @@ $(document).ready(function() {
             }, 1700)
         } else {
             if (phone_signup == '') {
-                $('.errrorPhone').html("Vui lòng nhập số điện thoại");
+                $('.errrorPhone').html("Vui lòng nhập địa chỉ email");
                 $(".Nationalarea-input").keyup(function() {
                     $('.errrorPhone').html("")
                 });
-            } else if (length_input < 9 || length_input > 9) {
-                $('.errrorPhone').html("Số điện thoại có 9 số");
+            } else if (length_input <= 15) {
+                $('.errrorPhone').html("Địa chỉ email quá ngắn hoặc không đúng");
+                $(".Nationalarea-input").keyup(function() {
+                    $('.errrorPhone').html("")
+                });
+            } else if (!checkMail) {
+                $('.errrorPhone').html("Địa chỉ email không đúng định dạng");
                 $(".Nationalarea-input").keyup(function() {
                     $('.errrorPhone').html("")
                 });
@@ -212,8 +227,8 @@ $(document).ready(function() {
             var infiniti_signup = $(".infiniti_signup").val().trim();
             $(this).attr("disabled", "disabled");
             var length_input = phone_signup.length;
-            var checkNumber = $.isNumeric(phone_signup);
-            if (checkNumber == true && phone_signup != "" && pass_signup != "" && re_pass_signup != "" && length_input > 8 && length_input < 10 && otp_signup != "" && infiniti_signup != "" && pass_signup == re_pass_signup) {
+            const checkMail = validateEmail(phone_signup);
+            if (checkMail && phone_signup != "" && pass_signup != "" && re_pass_signup != "" && length_input > 15 && otp_signup != "" && infiniti_signup != "" && pass_signup == re_pass_signup) {
                 var settings = {
                     "url": "/account/signup",
                     "method": "POST",
@@ -279,18 +294,17 @@ $(document).ready(function() {
                         $('.signup_check').removeAttr("disabled");
                     }, 1000)
                 }, 200);
-            } else if (phone_signup == "" || checkNumber == false) {
-                $('.errrorPhone').html("Vui lòng nhập số điện thoại");
+            } else if (phone_signup == "" || checkMail == false) {
+                $('.errrorPhone').html("Vui lòng nhập đúng định dạng địa chỉ email");
                 $(".Nationalarea-input").keyup(function() {
                     $('.errrorPhone').html("")
                 });
                 $('.signup_check').removeAttr("disabled");
-            } else if (length_input < 9 || length_input > 9) {
-                $('.errrorPhone').html("Số điện thoại có 9 số");
+            } else if (length_input <= 15) {
+                $('.errrorPhone').html("Địa chỉ email quá ngắn hoặc không đúng");
                 $(".Nationalarea-input").keyup(function() {
                     $('.errrorPhone').html("")
                 });
-                $('.signup_check').removeAttr("disabled");
             } else if (pass_signup == "") {
                 $('.pa').html("Vui lòng nhập mật khẩu");
                 $(".pass_signup").keyup(function() {
