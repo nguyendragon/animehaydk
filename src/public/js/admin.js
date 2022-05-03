@@ -1,7 +1,7 @@
 $(window).on('load', function() {
     setTimeout(() => {
         $('#preloader').fadeOut();
-    }, 300);
+    }, 100);
 })
 $(document).ready(function() {
     $(`a[href="${window.location.pathname}"]`).addClass('active');

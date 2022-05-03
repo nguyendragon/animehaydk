@@ -7,7 +7,7 @@ $("#search").on("keyup", function() {
 
 $(function() {
     const rowsPerPage = 30;
-    const rows = $('table tbody tr');
+    const rows = $('#table1 tbody tr');
     const rowsCount = rows.length;
     const pageCount = Math.ceil(rowsCount / rowsPerPage); // tránh số thập phân
     const numbers = $('#numbers');
@@ -55,7 +55,7 @@ $(function() {
     }
     hidePagination();
 
-    $('.previous').click(function(e) {
+    $('.table1 .previous').click(function(e) {
         e.preventDefault();
         const prev = $('#numbers .page-item .active').parent().prev().children();
         const lastSelect = prev.parent().next().children();
@@ -65,7 +65,7 @@ $(function() {
             displayRows(prev.text());
         }
     });
-    $('.next').click(function(e) {
+    $('.table1 .next').click(function(e) {
         e.preventDefault();
         const next = $('#numbers .page-item .active').parent().next().children();
         const lastSelect = next.parent().prev().children();

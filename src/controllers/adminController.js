@@ -229,8 +229,8 @@ const profileMember = async(req, res) => {
         const [quantity_f1] = await connection.execute('SELECT COUNT(*) AS soluong FROM `users` WHERE `ma_gt_f1` = ? ', [info[0].ma_gt]);
         const [list_f1] = await connection.query('SELECT `ma_gt` FROM `users` WHERE `ma_gt_f1` = ?', [info[0].ma_gt]);
         const [online_f1] = await connection.query('SELECT COUNT(*) as online_f1 FROM `users` WHERE `ma_gt_f1` = ? AND `status_login` = 1', [info[0].ma_gt]);
-        const [order_woipy] = await connection.query('SELECT `giai_doan`,`so_tien_cuoc`,`nhan_duoc`,`status`,`chon`,`ket_qua` FROM `order_woipy` WHERE `phone_login` = ?', [phone_login]);
-        const [ref_f1] = await connection.execute('SELECT phone_login, name_user, time, ma_gt,`status_login` FROM `users` WHERE `ma_gt_f1` = ? ORDER BY `id` DESC', [info[0].ma_gt]);
+        const [order_woipy] = await connection.query('SELECT `giai_doan`,`so_tien_cuoc`,`nhan_duoc`,`status`,`chon`,`ket_qua` FROM `order_woipy` WHERE `phone_login` = ? ORDER BY `id` DESC', [phone_login]);
+        const [ref_f1] = await connection.execute('SELECT phone_login, name_user, time, ma_gt,`status_login`, `ip` FROM `users` WHERE `ma_gt_f1` = ? ORDER BY `id` DESC', [info[0].ma_gt]);
         var countF2 = 0;
         var countOnlineF2 = 0;
         if (list_f1.length > 0) {
@@ -251,7 +251,7 @@ const profileMember = async(req, res) => {
         if (ref_f1.length > 0) {
             for (let i = 0; i < ref_f1.length; i++) {
                 var list_f1s = ref_f1[i].ma_gt;
-                var [ref_f2s] = await connection.query('SELECT phone_login, name_user, time, ma_gt,status_login FROM `users` WHERE `ma_gt_f1` = ? ORDER BY `id` DESC', [list_f1s]);
+                var [ref_f2s] = await connection.query('SELECT phone_login, name_user, time, ma_gt,status_login, `ip` FROM `users` WHERE `ma_gt_f1` = ? ORDER BY `id` DESC', [list_f1s]);
                 if (ref_f2s.length > 0) {
                     ref_f2.push(ref_f2s);
                 }

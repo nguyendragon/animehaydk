@@ -48,7 +48,7 @@
             </div>
           </div>
           <div class="card-body p-0" style="overflow-y: hidden;">
-            <table class="table table-striped projects">
+            <table class="table table-striped projects" id="table1">
               <thead>
                 <tr>
                   <th class="text-center">#</th>
@@ -56,6 +56,7 @@
                   <th class="text-center">Loại</th>
                   <th class="text-center">Tiền</th>
                   <th class="text-center">Mã</th>
+                  <th class="text-center">Ngày</th>
                   <th class="text-center">Status</th>
                   <th class="text-center"></th>
                 </tr>
@@ -83,6 +84,9 @@
                   </td>
                   <td>
                     <b><%=recharge[i].ma_don%></b>
+                  </td>
+                  <td style="min-width: 190px;">
+                    <b><%=recharge[i].time%></b>
                   </td>
                   <% if (recharge[i].status == 0) { %>
                   <td class="project-state">
@@ -118,7 +122,7 @@
             </table>
           </div>
           <nav aria-label="Page navigation example" style="margin-top: 20px;display: flex;justify-content: center;">
-            <ul class="pagination">
+            <ul class="pagination table1">
               <li class="page-item previous">
                 <a class="page-link" href="#" tabindex="-1">Previous</a>
               </li>

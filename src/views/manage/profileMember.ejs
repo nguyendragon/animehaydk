@@ -64,6 +64,9 @@
                                         <li class="list-group-item">
                                             <b>F2</b> <a class="float-right">(<%=countOnlineF2%> / <%=countF2%>) <%=String(wallet_bonus[0].ref_f2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');%></a>
                                         </li>
+                                        <li class="list-group-item">
+                                            <b>IP</b> <a class="float-right"><%=info[0].ip%></a>
+                                        </li>
                                     </ul>
 
                                     <a href="#" class="btn btn-primary btn-block"><b style="text-transform: uppercase;"><%=info[0].lever%></b></a>
@@ -124,7 +127,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body p-0" style="display: block; overflow-y: hidden;">
-                                        <table class="table table-striped projects">
+                                        <table class="table table-striped projects" id="table1">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">#</th>
@@ -133,6 +136,7 @@
                                                     <th class="text-center">Tên</th>
 
                                                     <th class="text-center">Mã</th>
+                                                    <th class="text-center">IP</th>
                                                     <th class="text-center">Time Tạo</th>
                                                     <th class="text-center">Status</th>
 
@@ -152,6 +156,10 @@
 
                                                         <td>
                                                             <b><%=ref_f1[i].ma_gt%></b>
+                                                        </td>
+
+                                                        <td>
+                                                            <b><%=ref_f1[i].ip%></b>
                                                         </td>
 
                                                         <td style="min-width: 210px;">
@@ -187,6 +195,10 @@
                                                             <b><%=ref_f2[0][i].ma_gt%></b>
                                                         </td>
 
+                                                        <td>
+                                                            <b><%=ref_f2[0][i].ip%></b>
+                                                        </td>
+
                                                         <td style="min-width: 210px;">
                                                             <b><%=ref_f2[0][i].time%></b>
                                                         </td>
@@ -209,7 +221,7 @@
                                         </table>
                                     </div>
                                     <nav aria-label="Page navigation example" style="margin-top: 20px; display: flex; justify-content: center">
-                                        <ul class="pagination">
+                                        <ul class="pagination table1">
                                             <li class="page-item previous">
                                                 <a class="page-link" href="#" tabindex="-1">Previous</a>
                                             </li>
@@ -236,7 +248,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body p-0" style="display: block; overflow-y: hidden;">
-                                        <table class="table table-striped projects" id="table">
+                                        <table class="table table-striped projects" id="table2">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">Giai đoạn</th>
@@ -293,7 +305,7 @@
                                         </table>
                                     </div>
                                     <nav aria-label="Page navigation example" style="margin-top: 20px; display: flex; justify-content: center">
-                                        <ul class="pagination">
+                                        <ul class="pagination table2">
                                             <li class="page-item previous">
                                                 <a class="page-link" href="#" tabindex="-1">Previous</a>
                                             </li>
@@ -319,7 +331,7 @@
     <script>
         $(function() {
             const rowsPerPage = 30;
-            const rows = $('#table tbody tr');
+            const rows = $('#table2 tbody tr');
             const rowsCount = rows.length;
             const pageCount = Math.ceil(rowsCount / rowsPerPage); // tránh số thập phân
             const numbers = $('#numberss');
@@ -367,7 +379,7 @@
             }
             hidePagination();
 
-            $('.previous').click(function(e) {
+            $('.table2 .previous').click(function(e) {
                 e.preventDefault();
                 const prev = $('#numberss .page-item .active').parent().prev().children();
                 const lastSelect = prev.parent().next().children();
@@ -377,7 +389,7 @@
                     displayRows(prev.text());
                 }
             });
-            $('.next').click(function(e) {
+            $('.table2 .next').click(function(e) {
                 e.preventDefault();
                 const next = $('#numberss .page-item .active').parent().next().children();
                 const lastSelect = next.parent().prev().children();

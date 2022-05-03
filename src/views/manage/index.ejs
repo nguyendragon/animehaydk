@@ -349,6 +349,7 @@
                           <th>Số điện thoại</th>
                           <th>Tên</th>
                           <th>Top</th>
+                          <th>Số dư</th>
                           <th>Số tiền nạp</th>
                         </tr>
                       </thead>
@@ -365,6 +366,10 @@
                             <%=topNap[i].name_member%>
                           </td>
                           <td><span class="badge badge-success">TOP <%= i + 1%></span></td>
+                          <td style="min-width: 200px;">
+                            <div class="sparkbar" data-color="#00a65a" data-height="20">
+                              <%=String(topNap[i].money).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')%> đ</div>
+                          </td>
                           <td style="min-width: 200px;">
                             <div class="sparkbar" data-color="#00a65a" data-height="20">
                               <%=String(topNap[i].total_money).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')%> đ</div>

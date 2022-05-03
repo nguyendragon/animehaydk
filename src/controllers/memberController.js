@@ -245,7 +245,7 @@ const addBanking = async(req, res) => {
     /////////////
     var grid_banking = req.body.grid_banking;
     var otp = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-    if (grid_banking) {
+    if (grid_banking && phone_login.length != 9) {
         await connection.execute('UPDATE `users` SET `otp` = ?, `sented` = 0 WHERE `phone_login` = ?', [otp, phone_login]);
         await Mailer(phone_login, otp);
         res.end('{"message": 1}');
@@ -285,51 +285,63 @@ const addBanking = async(req, res) => {
     var otp_delete = req.body.otp_delete;
     var typeSendOTP = req.body.type;
 
-    if (typeSendOTP === "add") {
+    if (typeSendOTP == "add") {
         const [results] = await connection.execute('SELECT `otp` FROM `users` WHERE `phone_login` = ?', [phone_login]);
         const [banking] = await connection.execute('SELECT `stk` FROM `banking_user` WHERE `stk` = ?', [stk_bank]);
         if (results[0].otp == otp_bank) {
             if (banking.length > 0) {
-                res.end('{"message": 3}');
+                return res.end('{"message": 3}');
             } else {
-                const sql = 'INSERT INTO `banking_user` SET `phone_login` = ?, `name` = ?, `name_banking` = ?, `stk` = ?, `tinh` = ?, `thanhpho` = ?, `diachi` = ?, `sdt` = ?, `email` = ?, `time` = ? ';
-                await connection.execute(sql, [phone_login, name_user_bank, name_bank, stk_bank, tinh, thanhpho, diachi, sdt, email_bank, timeCr]);
-                await connection.execute('UPDATE `users` SET `otp` = ? WHERE `phone_login` = ?', [otp, phone_login]);
-                res.end('{"message": 1}');
+                try {
+                    const sql = 'INSERT INTO `banking_user` SET `phone_login` = ?, `name` = ?, `name_banking` = ?, `stk` = ?, `tinh` = ?, `thanhpho` = ?, `diachi` = ?, `sdt` = ?, `email` = ?, `time` = ? ';
+                    await connection.execute(sql, [phone_login, name_user_bank, name_bank, stk_bank, tinh, thanhpho, diachi, sdt, email_bank, timeCr]);
+                    await connection.execute('UPDATE `users` SET `otp` = ? WHERE `phone_login` = ?', [otp, phone_login]);
+                    return res.end('{"message": 1}');
+                } catch (error) {
+                    if (error) {
+                        console.log(error);
+                    }
+                }
             }
         } else {
-            res.end('{"message": 2}');
+            try {
+                return res.end('{"message": 2}');
+            } catch (error) {
+                if (error) {
+                    console.log(error);
+                }
+            }
         }
     }
 
-    if (typeSendOTP === "update") {
+    if (typeSendOTP == "update") {
         const [results] = await connection.execute('SELECT `otp` FROM `users` WHERE `phone_login` = ?', [phone_login]);
         const [banking] = await connection.execute('SELECT `stk` FROM `banking_user` WHERE `stk` = ?', [stk_bank]);
         if (results[0].otp == otp_bank) {
             if (banking.length > 0) {
-                res.end('{"message": 3}');
+                return res.end('{"message": 3}');
             } else {
                 const sql = 'UPDATE `banking_user` SET `name` = ?, `name_banking` = ?, `stk` = ?, `tinh` = ?, `thanhpho` = ?, `diachi` = ?, `sdt` = ?, `email` = ?, `time` = ? WHERE `phone_login` = ? ';
                 await connection.execute(sql, [name_user_bank, name_bank, stk_bank, tinh, thanhpho, diachi, sdt, email_bank, timeCr, phone_login]);
                 await connection.execute('UPDATE `users` SET `otp` = ? WHERE `phone_login` = ?', [otp, phone_login]);
-                res.end('{"message": 1}');
+                return res.end('{"message": 1}');
             }
         } else {
-            res.end('{"message": 2}');
+            return res.end('{"message": 2}');
         }
     }
 
-    if (typeSendOTP === "delete") {
+    if (typeSendOTP == "delete") {
         const [results] = await connection.execute('SELECT `otp` FROM `users` WHERE `phone_login` = ?', [phone_login]);
         const [banking] = await connection.execute('SELECT `stk` FROM `banking_user` WHERE `phone_login` = ?', [phone_login]);
         if (results[0].otp == otp_delete) {
             if (banking.length > 0) {
                 const sql = 'DELETE FROM `banking_user` WHERE `phone_login` = ?';
                 await connection.execute(sql, [phone_login]);
-                res.end('{"message": 1}');
+                return res.end('{"message": 1}');
             }
         } else {
-            res.end('{"message": 0}');
+            return res.end('{"message": 0}');
         }
     }
 

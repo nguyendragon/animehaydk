@@ -16,19 +16,19 @@ import mysql from 'mysql2/promise';
 // }); 
 
 // local
-// const connection = mysql.createPool({
-//     host: 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'ridanode'
-// });
-
-// vps
 const connection = mysql.createPool({
     host: 'localhost',
-    user: 'admin',
-    password: 'Xe9y8RNfRdGAco6',
-    database: '8rmr_rida080srfd'
+    user: 'root',
+    password: '',
+    database: 'ridanode'
 });
+
+// vps
+// const connection = mysql.createPool({
+//     host: 'localhost',
+//     user: 'admin',
+//     password: 'Xe9y8RNfRdGAco6',
+//     database: '8rmr_rida080srfd'
+// });
 
 export default connection;

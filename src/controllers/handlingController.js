@@ -177,7 +177,7 @@ const add_tage_woipy = async(req, res) => {
 
     function createKQ(params) {
         if (params == 0) {
-            return update_kq = Math.floor(Math.random() * (205999 - 205000)) + 205000;; // Ra kết quả trong cầu cũ
+            return update_kq = Math.floor(Math.random() * (205999 - 205000)) + 205000; // Ra kết quả trong cầu cũ
         } else {
             return update_kq = params;
         }

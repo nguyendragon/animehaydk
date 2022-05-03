@@ -48,7 +48,7 @@
                                     <div class="text-center">
                                         <label for="quantity">Buff tiền cho tài khoản</label>
                                     </div>
-                                    <input type="text" class="form-control" id="buff-phone" placeholder="Nhập số điện thoại"><br>
+                                    <input type="text" class="form-control" id="buff-phone" placeholder="Nhập số điện thoại hoặc địa chỉ Email"><br>
                                     <input type="text" class="form-control" id="buff-money" placeholder="Nhập số tiền">
                                     <button type="submit" class="btn btn-primary buff-money" style="width: 100%;">Submit</button>
                                 </div>
@@ -65,7 +65,7 @@
                                     <div class="text-center">
                                         <label for="quantity">Đổi tên khách hàng</label>
                                     </div>
-                                    <input type="text" class="form-control" id="edit-phone" placeholder="Nhập số điện thoại"><br>
+                                    <input type="text" class="form-control" id="edit-phone" placeholder="Nhập số điện thoại hoặc địa chỉ Email"><br>
                                     <input type="text" class="form-control" id="edit-user" placeholder="Nhập Tên Khách">
                                     <button type="submit" class="btn btn-primary edit-name" style="width: 100%;">Submit</button>
                                 </div>
@@ -168,9 +168,8 @@
             e.preventDefault();
             const phone = $('#buff-phone').val();
             const money = $('#buff-money').val();
-            const checkPhone = $.isNumeric(phone);
             const checkMoney = $.isNumeric(money);
-            if (checkPhone && checkMoney) {
+            if (phone && checkMoney) {
                 sendRequest(phone, money, "buff");
             } else {
                 Swal.fire({
@@ -183,8 +182,7 @@
             e.preventDefault();
             const phone = $('#edit-phone').val();
             const user = $('#edit-user').val();
-            const checkPhone = $.isNumeric(phone);
-            if (checkPhone) {
+            if (phone) {
                 sendRequest(phone, user, "edit");
             } else {
                 Swal.fire({

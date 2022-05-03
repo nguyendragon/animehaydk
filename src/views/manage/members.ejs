@@ -29,7 +29,7 @@
       </section>
 
       <div class="form-group" style="text-align: center">
-        <input type="text" id="search" placeholder="Nhập mã đơn hàng cần tìm" />
+        <input type="text" id="search" placeholder="Nhập thành viên cần tìm" />
       </div>
 
       <!-- Main content -->
@@ -48,11 +48,12 @@
             </div>
           </div>
           <div class="card-body p-0" style="overflow-y: hidden">
-            <table class="table table-striped projects">
+            <table class="table table-striped projects" id="table1">
               <thead>
                 <tr>
                   <th class="text-center">#</th>
                   <th class="text-center">Tài khoản</th>
+                  <th class="text-center">Tên</th>
                   <% if (info[0].lever == "boss") { %>
                   <th class="text-center">Cấp</th>
                   <% } %>
@@ -70,9 +71,12 @@
                 <tr class="text-center">
                   <td id="<%=listMembers[i].id%>"><%=listMembers[i].id%></td>
                   <td>
-                    <b style="color: #3498db"><%=listMembers[i].phone_login%></b>
+                    <b style="color: #2003db"><%=listMembers[i].phone_login%></b>
                   </td>
-                  <% if (info[0].lever == "boss") { %>
+                  <td style="min-width: 250px">
+                    <b style="color: #3498db;"><%=listMembers[i].name_member%></b>
+                  </td>
+                  <% if (info[0].lever == "boss") { %> 
                   <td>
                     <b><%=listMembers[i].lever%></b>
                   </td>
@@ -113,7 +117,7 @@
             </table>
           </div>
           <nav aria-label="Page navigation example" style="margin-top: 20px; display: flex; justify-content: center">
-            <ul class="pagination">
+            <ul class="pagination table1">
               <li class="page-item previous">
                 <a class="page-link" href="#" tabindex="-1">Previous</a>
               </li>

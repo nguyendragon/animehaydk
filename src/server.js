@@ -7,6 +7,7 @@ import socketIoController from './controllers/socketIoController';
 var cookieParser = require('cookie-parser');
 var jwt = require('jsonwebtoken');
 var cron = require('node-cron');
+
 require('dotenv').config();
 
 const port = process.env.PORT || 3001;
