@@ -128,20 +128,30 @@ const withdrawBonus = async(req, res) => {
         const [apply] = await connection.execute('SELECT `money` FROM `wallet_bonus` WHERE `phone_login` = ?', [phone_login]);
         const [withdraw_bonus] = await connection.execute('SELECT * FROM `withdraw_bonus` WHERE `phone_login` = ? ORDER BY `id` DESC LIMIT 1', [phone_login]);
         if (apply[0].money >= Number(bonus)) {
-            if (withdraw_bonus[0].day == day && withdraw_bonus[0].time_month_year == time_month_year) {
-                res.end('{"message": 4}');
-            } else {
-                if (withdraw_bonus[0].status != 0) {
-                    // tạo đơn rút hoa hồng
-                    const sql = "INSERT INTO `withdraw_bonus` SET `phone_login` = ?, `money` = ?, day = ?, time_month_year = ?, status = 0";
-                    await connection.execute(sql, [phone_login, bonus, day, time_month_year]);
-                    // update tiền
-                    const sql2 = "UPDATE `wallet_bonus` SET `money` = ? WHERE `phone_login` = ?";
-                    await connection.execute(sql2, [apply[0].money - bonus, phone_login]);
-                    res.end('{"message": 1}');
+            if (withdraw_bonus.length > 0) {
+                if (withdraw_bonus[0].day == day && withdraw_bonus[0].time_month_year == time_month_year) {
+                    res.end('{"message": 4}');
                 } else {
-                    res.end('{"message": 2}');
+                    if (withdraw_bonus[0].status != 0) {
+                        // tạo đơn rút hoa hồng
+                        const sql = "INSERT INTO `withdraw_bonus` SET `phone_login` = ?, `money` = ?, day = ?, time_month_year = ?, status = 0";
+                        await connection.execute(sql, [phone_login, bonus, day, time_month_year]);
+                        // update tiền
+                        const sql2 = "UPDATE `wallet_bonus` SET `money` = ? WHERE `phone_login` = ?";
+                        await connection.execute(sql2, [apply[0].money - bonus, phone_login]);
+                        res.end('{"message": 1}');
+                    } else {
+                        res.end('{"message": 2}');
+                    }
                 }
+            } else {
+                // tạo đơn rút hoa hồng
+                const sql = "INSERT INTO `withdraw_bonus` SET `phone_login` = ?, `money` = ?, day = ?, time_month_year = ?, status = 0";
+                await connection.execute(sql, [phone_login, bonus, day, time_month_year]);
+                // update tiền
+                const sql2 = "UPDATE `wallet_bonus` SET `money` = ? WHERE `phone_login` = ?";
+                await connection.execute(sql2, [apply[0].money - bonus, phone_login]);
+                res.end('{"message": 1}');
             }
         } else {
             res.end('{"message": 3}');

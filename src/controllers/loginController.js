@@ -97,13 +97,21 @@ const sendOTP = async(req, res) => {
         const [result] = await connection.execute('SELECT * FROM `users` WHERE `phone_login` = ?', [phone_signup]);
         const [checkIP] = await connection.execute('SELECT `ip` FROM `users` WHERE `ip` = ?', [ip]);
         if (result.length == 0) {
-            await connection.execute('INSERT INTO `users` SET `phone_login` = ?, `token` = ?, `ip` = ?, `otp` = ?', [phone_signup, "0", ip, otp]);
-            await Mailer(phone_signup, otp);
-            res.end('{"message": 1}');
+            if (checkIP.length < 3) {
+                await connection.execute('INSERT INTO `users` SET `phone_login` = ?, `token` = ?, `ip` = ?, `otp` = ?', [phone_signup, "0", ip, otp]);
+                await Mailer(phone_signup, otp);
+                res.end('{"message": 1}');
+            } else {
+                res.end('{"message": "error"}');
+            }
         } else if (result.length != 0) {
-            await connection.execute('UPDATE `users` SET `sented` = 0, `otp` = ? WHERE `phone_login` = ? ', [otp, phone_signup]);
-            await Mailer(phone_signup, otp);
-            res.end('{"message": 1}');
+            if (checkIP.length < 3) {
+                await connection.execute('UPDATE `users` SET `sented` = 0, `otp` = ? WHERE `phone_login` = ? ', [otp, phone_signup]);
+                await Mailer(phone_signup, otp);
+                res.end('{"message": 1}');
+            } else {
+                res.end('{"message": "error"}');
+            }
         }
     } else {
         res.end('{"message": "error"}');
