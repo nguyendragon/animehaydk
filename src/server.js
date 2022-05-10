@@ -41,7 +41,7 @@ cron.schedule('*/3 * * * *', async() => {
 // init route
 initWebRoutes(app);
 
-// Check xem ai connect vào sever
+// Check xem ai connect vào server
 socketIoController.sendMessageAdmin(io);
 
 server.listen(port, () => {

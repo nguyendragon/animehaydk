@@ -10,40 +10,40 @@ $(document).ready(function() {
         $('.van-tabs__track').removeClass('login');
         $('.van-tab2').addClass('van-tab--active');
         $('.van-tabs__track').addClass('register')
-    })
+    }) 
     const resetPassword = document.querySelector('.reset-password');
     resetPassword.addEventListener('click', function() { window.location = 'reset-password' });
 });
-$(document).ready(function() {
-    var counter = function() {
-        var check_cownDown = localStorage.getItem("Cowndown");
-        if (check_cownDown == null) {
-            $('.show_cowndown').html('<span data-v-5f483b78="" class="van-button__text" id="OTP">Mã OTP</span>');
-            var btn_otp = document.querySelector('.register-button__otp');
-            btn_otp.removeAttribute("disabled");
-            btn_otp.classList.remove('van-button--disabled');
-            document.getElementById('OTP').innerHTML = "Mã OTP"
-        }
-        if (check_cownDown < 2) {
-            localStorage.removeItem("Cowndown");
-            $('.show_cowndown').html('<span data-v-5f483b78="" class="van-button__text" id="OTP">Mã OTP</span>')
-        }
-        if (check_cownDown > 0) {
-            var value = check_cownDown;
-            value = parseInt(value) - 1;
-            localStorage.setItem("Cowndown", value);
-            var btn_otp = document.querySelector('.register-button__otp');
-            var createDisable = document.createAttribute("disabled");
-            createDisable.value = "disabled";
-            btn_otp.setAttributeNode(createDisable);
-            btn_otp.classList.add('van-button--disabled');
-            $('.show_cowndown').html('<span data-v-5f483b78="" class="van-button__text" id="OTP"></span>');
-            document.getElementById('OTP').innerHTML = value + " giây";
-            document.getElementById("OTP").style.minWidth = "60.7px"
-        }
-    };
-    setInterval(counter, 1000);
-});
+// $(document).ready(function() {
+//     var counter = function() {
+//         var check_cownDown = localStorage.getItem("Cowndown");
+//         if (check_cownDown == null) {
+//             $('.show_cowndown').html('<span data-v-5f483b78="" class="van-button__text" id="OTP">Mã OTP</span>');
+//             var btn_otp = document.querySelector('.register-button__otp');
+//             btn_otp.removeAttribute("disabled");
+//             btn_otp.classList.remove('van-button--disabled');
+//             document.getElementById('OTP').innerHTML = "Mã OTP"
+//         }
+//         if (check_cownDown < 2) {
+//             localStorage.removeItem("Cowndown");
+//             $('.show_cowndown').html('<span data-v-5f483b78="" class="van-button__text" id="OTP">Mã OTP</span>')
+//         }
+//         if (check_cownDown > 0) {
+//             var value = check_cownDown;
+//             value = parseInt(value) - 1;
+//             localStorage.setItem("Cowndown", value);
+//             var btn_otp = document.querySelector('.register-button__otp');
+//             var createDisable = document.createAttribute("disabled");
+//             createDisable.value = "disabled";
+//             btn_otp.setAttributeNode(createDisable);
+//             btn_otp.classList.add('van-button--disabled');
+//             $('.show_cowndown').html('<span data-v-5f483b78="" class="van-button__text" id="OTP"></span>');
+//             document.getElementById('OTP').innerHTML = value + " giây";
+//             document.getElementById("OTP").style.minWidth = "60.7px"
+//         }
+//     };
+//     setInterval(counter, 1000);
+// });
 
 $(window).on('load', function() { // makes sure the whole site is loaded 
     $('.preloader').delay(100).fadeOut('fast');
@@ -149,86 +149,87 @@ $(document).ready(function() {
 
     });
 
-    function validateEmail(email) {
-        var pattern = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        return (pattern.test(email));
-    }
+    // function validateEmail(email) {
+    //     var pattern = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    //     return (pattern.test(email));
+    // }
     /**************************************************************/
-    $('.register-button__otp').click(function(e) {
-        e.preventDefault();
-        $(this).attr('disabled', 'disabled');
-        const phone_signup = $('.Nationalarea-input').val().trim();
-        const checkMail = validateEmail(phone_signup);
-        console.log(checkMail);
-        const ip = $('#ip').text();
-        let length_input = phone_signup.length;
-        if (phone_signup != '' && length_input > 8 && length_input > 15 && checkMail) {
-            var settings = {
-                "url": "/account/otpsignup",
-                "method": "POST",
-                "timeout": 0,
-                // "headers": {
-                //     "phone_signup": "phone_signup",
-                //     "ip": "ip",
-                // },
-                "data": {
-                    "phone_signup": phone_signup,
-                    "ip": ip,
-                },
-            };
+    // $('.register-button__otp').click(function(e) {
+    //     e.preventDefault();
+    //     $(this).attr('disabled', 'disabled');
+    //     const phone_signup = $('.Nationalarea-input').val().trim();
+    //     const checkMail = validateEmail(phone_signup);
+    //     console.log(checkMail);
+    //     const ip = $('#ip').text();
+    //     let length_input = phone_signup.length;
+    //     if (phone_signup != '' && length_input > 8 && length_input > 15 && checkMail) {
+    //         var settings = {
+    //             "url": "/account/otpsignup",
+    //             "method": "POST",
+    //             "timeout": 0,
+    //             // "headers": {
+    //             //     "phone_signup": "phone_signup",
+    //             //     "ip": "ip",
+    //             // },
+    //             "data": {
+    //                 "phone_signup": phone_signup,
+    //                 "ip": ip,
+    //             },
+    //         };
 
-            $.ajax(settings).done(function(response) {
-                // const data = JSON.parse(response);
-                // console.log(data);
-            });
-            $('body').addClass('van-overflow-hidden');
-            $('.register-button__otp').addClass('van-button--disabled');
-            $('.van-toast--loading').removeClass('display-none');
-            setTimeout(function() {
-                $('.van-toast--loading').addClass('display-none');
-                $('.van-toast--text').removeClass('display-none');
-                $('.van-toast--text .van-toast__text').html('Mã xác nhận đã gửi thành công');
-                setTimeout(function() {
-                    $('.van-toast--text').addClass('display-none')
-                }, 500)
-            }, 1300);
-            var value = 60;
-            localStorage.setItem("Cowndown", value);
-            setTimeout(function() {
-                $('body').removeClass('van-overflow-hidden')
-            }, 1700)
-        } else {
-            if (phone_signup == '') {
-                $('.errrorPhone').html("Vui lòng nhập địa chỉ email");
-                $(".Nationalarea-input").keyup(function() {
-                    $('.errrorPhone').html("")
-                });
-            } else if (length_input <= 15) {
-                $('.errrorPhone').html("Địa chỉ email quá ngắn hoặc không đúng");
-                $(".Nationalarea-input").keyup(function() {
-                    $('.errrorPhone').html("")
-                });
-            } else if (!checkMail) {
-                $('.errrorPhone').html("Địa chỉ email không đúng định dạng");
-                $(".Nationalarea-input").keyup(function() {
-                    $('.errrorPhone').html("")
-                });
-            }
-        }
+    //         $.ajax(settings).done(function(response) {
+    //             // const data = JSON.parse(response);
+    //             // console.log(data);
+    //         });
+    //         $('body').addClass('van-overflow-hidden');
+    //         $('.register-button__otp').addClass('van-button--disabled');
+    //         $('.van-toast--loading').removeClass('display-none');
+    //         setTimeout(function() {
+    //             $('.van-toast--loading').addClass('display-none');
+    //             $('.van-toast--text').removeClass('display-none');
+    //             $('.van-toast--text .van-toast__text').html('Mã xác nhận đã gửi thành công');
+    //             setTimeout(function() {
+    //                 $('.van-toast--text').addClass('display-none')
+    //             }, 500)
+    //         }, 1300);
+    //         var value = 60;
+    //         localStorage.setItem("Cowndown", value);
+    //         setTimeout(function() {
+    //             $('body').removeClass('van-overflow-hidden')
+    //         }, 1700)
+    //     } else {
+    //         if (phone_signup == '') {
+    //             $('.errrorPhone').html("Vui lòng nhập địa chỉ email");
+    //             $(".Nationalarea-input").keyup(function() {
+    //                 $('.errrorPhone').html("")
+    //             });
+    //         } else if (length_input <= 15) {
+    //             $('.errrorPhone').html("Địa chỉ email quá ngắn hoặc không đúng");
+    //             $(".Nationalarea-input").keyup(function() {
+    //                 $('.errrorPhone').html("")
+    //             });
+    //         } else if (!checkMail) {
+    //             $('.errrorPhone').html("Địa chỉ email không đúng định dạng");
+    //             $(".Nationalarea-input").keyup(function() {
+    //                 $('.errrorPhone').html("")
+    //             });
+    //         }
+    //     }
 
-    });
+    // });
     /**************************************************************/
-    document.querySelector(".checkbox").checked = !0;
+    // document.querySelector(".checkbox").checked = !0;
     $('.signup_check').click(function() {
             var phone_signup = $(".Nationalarea-input").val().trim();
             var pass_signup = $(".pass_signup").val().trim();
             var re_pass_signup = $(".re_pass_signup").val().trim();
-            var otp_signup = $(".otp_signup").val().trim();
-            var infiniti_signup = $(".infiniti_signup").val().trim();
+            // var otp_signup = $(".otp_signup").val().trim();
+            // var infiniti_signup = $(".infiniti_signup").val().trim();
             $(this).attr("disabled", "disabled");
             var length_input = phone_signup.length;
-            const checkMail = validateEmail(phone_signup);
-            if (checkMail && phone_signup != "" && pass_signup != "" && re_pass_signup != "" && length_input > 15 && otp_signup != "" && infiniti_signup != "" && pass_signup == re_pass_signup) {
+            // const checkMail = validateEmail(phone_signup);
+            const ip = $('#ip').text();
+            if (ip != "" && phone_signup != "" && pass_signup != "" && re_pass_signup != "" && length_input <= 20 && length_input >= 5 && pass_signup == re_pass_signup) {
                 var settings = {
                     "url": "/account/signup",
                     "method": "POST",
@@ -242,8 +243,9 @@ $(document).ready(function() {
                     "data": {
                         "phone_signup": phone_signup,
                         "password_v1": pass_signup,
-                        "codeOTP": otp_signup,
-                        "MaGioiThieu": infiniti_signup,
+                        "ip": ip
+                        // "codeOTP": otp_signup,
+                        // "MaGioiThieu": infiniti_signup,
                     },
                 };
 
@@ -262,49 +264,67 @@ $(document).ready(function() {
                         $('.signup_check').removeAttr("disabled");
                     } else if (dataSignUP.message == 0) {
                         $('.van-toast--fail').removeClass('display-none');
-                        $('.van-toast--fail .van-toast__text').html('Số điện thoại di động đã được đăng ký.');
+                        $('.van-toast--fail .van-toast__text').html('Tài khoản đã được đăng ký.');
                         setTimeout(function() {
                             $('.van-toast--fail').addClass('display-none')
                         }, 1000)
                         $('.signup_check').removeAttr("disabled");
-                    } else if (dataSignUP.message == 2) {
+                    } else if (dataSignUP.message == 'error') {
                         $('.van-toast--fail').removeClass('display-none');
-                        $('.van-toast--fail .van-toast__text').html('Sai mã xác minh!');
+                        $('.van-toast--fail .van-toast__text').html('Đã xảy ra lỗi trong quá trình đăng ký !.');
                         setTimeout(function() {
                             $('.van-toast--fail').addClass('display-none')
-                        }, 1000);
-                        $('.signup_check').removeAttr("disabled");
-                    } else if (dataSignUP.message == 3) {
-                        $('.van-toast--fail').removeClass('display-none');
-                        $('.van-toast--fail .van-toast__text').html('Mã đề xuất không tồn tại!');
-                        setTimeout(function() {
-                            $('.van-toast--fail').addClass('display-none')
-                        }, 1000);
+                        }, 1000)
                         $('.signup_check').removeAttr("disabled");
                     }
                 });
             }
-            var checkbox = document.querySelector('.checkbox').checked;
-            if (checkbox == !1) {
-                $('.van-toast--text').removeClass("display-none");
-                $('.van-toast--text .van-toast__text').html('Vui lòng đồng ý với chính sách bảo mật trước tiên.');
-                setTimeout(function() {
-                    setTimeout(function() {
-                        $('.van-toast--text').addClass("display-none");
-                        $('.signup_check').removeAttr("disabled");
-                    }, 1000)
-                }, 200);
-            } else if (phone_signup == "" || checkMail == false) {
-                $('.errrorPhone').html("Vui lòng nhập đúng định dạng địa chỉ email");
+
+            // else if (dataSignUP.message == 2) {
+            //     $('.van-toast--fail').removeClass('display-none');
+            //     $('.van-toast--fail .van-toast__text').html('Sai mã xác minh!');
+            //     setTimeout(function() {
+            //         $('.van-toast--fail').addClass('display-none')
+            //     }, 1000);
+            //     $('.signup_check').removeAttr("disabled");
+            // } else if (dataSignUP.message == 3) {
+            //     $('.van-toast--fail').removeClass('display-none');
+            //     $('.van-toast--fail .van-toast__text').html('Mã đề xuất không tồn tại!');
+            //     setTimeout(function() {
+            //         $('.van-toast--fail').addClass('display-none')
+            //     }, 1000);
+            //     $('.signup_check').removeAttr("disabled");
+            // }
+
+            // var checkbox = document.querySelector('.checkbox').checked;
+            // if (checkbox == !1) {
+            //     $('.van-toast--text').removeClass("display-none");
+            //     $('.van-toast--text .van-toast__text').html('Vui lòng đồng ý với chính sách bảo mật trước tiên.');
+            //     setTimeout(function() {
+            //         setTimeout(function() {
+            //             $('.van-toast--text').addClass("display-none");
+            //             $('.signup_check').removeAttr("disabled");
+            //         }, 1000)
+            //     }, 200);
+            // } else if (phone_signup == "" || checkMail == false) {
+            //     $('.errrorPhone').html("Vui lòng nhập đúng định dạng địa chỉ email");
+            //     $(".Nationalarea-input").keyup(function() {
+            //         $('.errrorPhone').html("")
+            //     });
+            //     $('.signup_check').removeAttr("disabled");
+            // } else 
+            if (length_input > 20) {
+                $('.errrorPhone').html("Tên tài khoản tối đa là 20 ký tự !");
                 $(".Nationalarea-input").keyup(function() {
                     $('.errrorPhone').html("")
                 });
                 $('.signup_check').removeAttr("disabled");
-            } else if (length_input <= 15) {
-                $('.errrorPhone').html("Địa chỉ email quá ngắn hoặc không đúng");
+            } else if (length_input < 5) {
+                $('.errrorPhone').html("Tên tài khoản cần ít nhất 5 ký tự !");
                 $(".Nationalarea-input").keyup(function() {
                     $('.errrorPhone').html("")
                 });
+                $('.signup_check').removeAttr("disabled");
             } else if (pass_signup == "") {
                 $('.pa').html("Vui lòng nhập mật khẩu");
                 $(".pass_signup").keyup(function() {
@@ -323,23 +343,12 @@ $(document).ready(function() {
                     $('.kk').html("")
                 });
                 $('.signup_check').removeAttr("disabled");
-            } else if (infiniti_signup == "") {
-                $('.van-toast--fail').removeClass("display-none");
-                $('.van-toast--fail .van-toast__text').html('Vui lòng nhập mã đề xuất.');
+            } else if (ip == "") {
+                $('.van-toast--fail').removeClass('display-none');
+                $('.van-toast--fail .van-toast__text').html('Đã xảy ra lỗi trong quá trình đăng ký!.');
                 setTimeout(function() {
-                    setTimeout(function() {
-                        $('.van-toast--fail').addClass("display-none")
-                    }, 1000)
-                }, 200)
-                $('.signup_check').removeAttr("disabled");
-            } else if (otp_signup == "") {
-                $('.van-toast--fail').removeClass("display-none");
-                $('.van-toast--fail .van-toast__text').html('Vui lòng nhập mã OTP.');
-                setTimeout(function() {
-                    setTimeout(function() {
-                        $('.van-toast--fail').addClass("display-none")
-                    }, 1000)
-                }, 200)
+                    $('.van-toast--fail').addClass('display-none')
+                }, 1000)
                 $('.signup_check').removeAttr("disabled");
             }
         })

@@ -1,5 +1,4 @@
 import express from 'express';
-import indexController from '../controllers/indexController';
 import memberController from '../controllers/memberController';
 import parityController from '../controllers/parityController';
 import loginController from '../controllers/loginController';
@@ -10,19 +9,14 @@ const router = express.Router();
 
 const initWebRoutes = (app) => {
     router.get('/', (req, res) => {
-        return res.redirect('/index');
+        return res.redirect('/parity/tran');
     });
-
-    // Index
-    router.get('/index', indexController.getIndex);
-
-    // Home
-    router.get('/home/search', indexController.getHome);
 
     // Login
     router.get('/account/login', loginController.getPageLogin);
+    router.get('/account/reset-password', loginController.getPageResetPass);
     router.post('/account/login', loginController.loginFunc);
-    router.post('/account/otpsignup', loginController.sendOTP);
+    // router.post('/account/otpsignup', loginController.sendOTP);
     router.post('/account/signup', loginController.register);
 
     // Member

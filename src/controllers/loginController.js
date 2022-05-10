@@ -17,6 +17,10 @@ const getPageLogin = (req, res) => {
     }
 }
 
+const getPageResetPass = (req, res) => {
+    return res.render('login/reset.ejs');
+}
+
 // Đăng Nhập
 const loginFunc = async(req, res) => {
     // 1. thành công
@@ -88,35 +92,35 @@ const Mailer = async(mailer, otpCreate) => {
 }
 
 // Gửi OTP
-const sendOTP = async(req, res) => {
-    let phone_signup = req.body.phone_signup;
-    let checkMail = validateEmail(phone_signup);
-    let ip = req.body.ip;
-    let otp = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-    if (phone_signup.length > 15 && checkMail) {
-        const [result] = await connection.execute('SELECT * FROM `users` WHERE `phone_login` = ?', [phone_signup]);
-        const [checkIP] = await connection.execute('SELECT `ip` FROM `users` WHERE `ip` = ?', [ip]);
-        if (result.length == 0) {
-            if (checkIP.length < 3) {
-                await connection.execute('INSERT INTO `users` SET `phone_login` = ?, `token` = ?, `ip` = ?, `otp` = ?', [phone_signup, "0", ip, otp]);
-                await Mailer(phone_signup, otp);
-                res.end('{"message": 1}');
-            } else {
-                res.end('{"message": "error"}');
-            }
-        } else if (result.length != 0) {
-            if (checkIP.length < 3) {
-                await connection.execute('UPDATE `users` SET `sented` = 0, `otp` = ? WHERE `phone_login` = ? ', [otp, phone_signup]);
-                await Mailer(phone_signup, otp);
-                res.end('{"message": 1}');
-            } else {
-                res.end('{"message": "error"}');
-            }
-        }
-    } else {
-        res.end('{"message": "error"}');
-    }
-}
+// const sendOTP = async(req, res) => {
+//     let phone_signup = req.body.phone_signup;
+//     let checkMail = validateEmail(phone_signup);
+//     let ip = req.body.ip;
+//     let otp = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+//     if (phone_signup.length > 15 && checkMail) {
+//         const [result] = await connection.execute('SELECT * FROM `users` WHERE `phone_login` = ?', [phone_signup]);
+//         const [checkIP] = await connection.execute('SELECT `ip` FROM `users` WHERE `ip` = ?', [ip]);
+//         if (result.length == 0) {
+//             if (checkIP.length < 3) {
+//                 await connection.execute('INSERT INTO `users` SET `phone_login` = ?, `token` = ?, `ip` = ?, `otp` = ?', [phone_signup, "0", ip, otp]);
+//                 await Mailer(phone_signup, otp);
+//                 res.end('{"message": 1}');
+//             } else {
+//                 res.end('{"message": "error"}');
+//             }
+//         } else if (result.length != 0) {
+//             if (checkIP.length < 3) {
+//                 await connection.execute('UPDATE `users` SET `sented` = 0, `otp` = ? WHERE `phone_login` = ? ', [otp, phone_signup]);
+//                 await Mailer(phone_signup, otp);
+//                 res.end('{"message": 1}');
+//             } else {
+//                 res.end('{"message": "error"}');
+//             }
+//         }
+//     } else {
+//         res.end('{"message": "error"}');
+//     }
+// }
 
 // Đăng ký
 const register = async(req, res) => {
@@ -131,9 +135,10 @@ const register = async(req, res) => {
     var id_user = readableRandomStringMaker(16);
     var phone_signup = req.body.phone_signup;
     var password_v1 = md5(req.body.password_v1);
-    var codeOTP = req.body.codeOTP;
-    var MaGioiThieu = req.body.MaGioiThieu;
+    // var codeOTP = req.body.codeOTP;
+    // var MaGioiThieu = req.body.MaGioiThieu;
     var otp = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+    var ip = req.body.ip;
     let MaGioiThieu_User = Math.floor(Math.random() * (9999999 - 1000000)) + 1000000;
     let name_user = "Member" + (Math.floor(Math.random() * (9999 - 1000)) + 1000);
 
@@ -161,24 +166,27 @@ const register = async(req, res) => {
 
     var timeCr = TimeCreate();
 
-    if (phone_signup) {
-        const [result] = await connection.execute("SELECT * FROM `users` WHERE `phone_login` = ? AND `otp` = ? ", [phone_signup, codeOTP]);
-        if (result.length == 0) {
-            res.end('{"message": 2}');
-        } else if (result[0].veri == 1) {
-            res.end('{"message": 0}');
-        } else if (result[0].veri == 0) {
-            const [rows] = await connection.execute("SELECT `ma_gt` FROM `users` WHERE ma_gt = ? ", [MaGioiThieu]);
-            if (rows.length == 1) {
+    if (phone_signup && ip && password_v1) {
+        const [checkIP] = await connection.execute('SELECT `ip` FROM `users` WHERE `ip` = ?', [ip]);
+        const [result] = await connection.execute("SELECT * FROM `users` WHERE `phone_login` = ? ", [phone_signup]);
+
+        if (result.length > 0) {
+            return res.end('{"message": 0}');
+        } else {
+            if (checkIP.length < 3) {
+                await connection.execute('INSERT INTO `users` SET `phone_login` = ?, `token` = ?, `ip` = ?, `otp` = ?', [phone_signup, "0", ip, otp]);
                 var sql = 'UPDATE `users` SET `id_user` = ?, `password_v1` = ?, `name_user` = ?, `ma_gt` = ?, `ma_gt_f1` = ?, `veri` = 1, `otp` = ?, `time` = ?, `money` = ? WHERE `phone_login` = ? ';
-                await connection.execute(sql, [id_user, password_v1, name_user, MaGioiThieu_User, MaGioiThieu, otp, timeCr, money_temp[0].khuyen_mai, phone_signup]);
+                await connection.execute(sql, [id_user, password_v1, name_user, MaGioiThieu_User, 4935926, otp, timeCr, money_temp[0].khuyen_mai, phone_signup]);
                 var sql_wallet_bonus = 'INSERT INTO `wallet_bonus` SET `phone_login` = ?, `time` = ?';
                 await connection.execute(sql_wallet_bonus, [phone_signup, timeCr]);
-                res.end('{"message": 1}');
+                // await Mailer(phone_signup, otp);
+                return res.end('{"message": 1}');
             } else {
-                res.end('{"message": 3}');
+                return res.end('{"message": "error"}');
             }
         }
+    } else {
+        return res.end('{"message": "error"}');
     }
 }
 
@@ -186,6 +194,7 @@ const register = async(req, res) => {
 module.exports = {
     getPageLogin,
     loginFunc,
-    sendOTP,
+    // sendOTP,
     register,
+    getPageResetPass
 }
