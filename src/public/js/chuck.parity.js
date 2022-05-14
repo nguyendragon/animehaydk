@@ -1555,7 +1555,6 @@ $(document).ready(function() {
                 dataType: "json",
                 success: function(response) {
                     var money = response.money;
-                    console.log(money);
                     var forMatMoney = formatMoney(money);
                     $('.left_money').html(forMatMoney);
                 }

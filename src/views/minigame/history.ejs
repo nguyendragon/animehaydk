@@ -1,0 +1,104 @@
+<div class="row" id="row-lich-su-tx" style="margin-bottom: 20px;padding-right: 15px;padding-left: 15px;">
+    <div class="text-center font-weight-bold" style="margin-top: 10px; margin-bottom: 3px; width: 100%">
+        <h4 id="darkMode4" class="text-dark">Lịch sử đặt cược</h4>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover text-center">
+            <thead class="bg-info text-white">
+                <tr>
+                    <th scope="col" style="white-space:nowrap;">Tài khoản</th>
+                    <th scope="col" style="white-space:nowrap;">Tiền cược</th>
+                    <th scope="col" style="white-space:nowrap;">Thể loại</th>
+                    <th scope="col" style="white-space:nowrap;">Dự đoán</th>
+                    <th scope="col" style="white-space:nowrap;">Kết quả</th>
+                    <th scope="col" style="white-space:nowrap;">Vàng nhận</th>
+                    <th scope="col" style="white-space:nowrap;">Trạng thái</th>
+                    <th scope="col" style="white-space:nowrap;">Thời gian</th>
+                </tr>
+            </thead>
+            <tbody id="lichsugd" class="text-dark">
+                <tr>
+                    <td style="white-space:nowrap; padding: 7px">tayto</td>
+                    <td style="white-space:nowrap; padding: 7px">450,005,000</td>
+                    <td style="white-space:nowrap; padding: 7px">Tài xỉu</td>
+                    <td style="white-space:nowrap; padding: 7px">Xỉu</td>
+                    <td style="white-space:nowrap; padding: 7px">17</td>
+                    <td style="white-space:nowrap; padding: 7px">855,009,500</td>
+                    <td style="white-space:nowrap; padding: 7px">
+                        <div class="badge badge-success text-uppercase font-weight-bold" ;="" style="padding: 5px 5px"> Đã thanh toán </div>
+                    </td>
+                    <td style="white-space:nowrap; padding: 7px">13:03:14</td>
+                </tr>
+                <tr>
+                    <td style="white-space:nowrap; padding: 7px">siwuwuwj</td>
+                    <td style="white-space:nowrap; padding: 7px">32,380,000</td>
+                    <td style="white-space:nowrap; padding: 7px">Chẵn lẻ</td>
+                    <td style="white-space:nowrap; padding: 7px">Chẵn</td>
+                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                    <td style="white-space:nowrap; padding: 7px">01:35:59</td>
+                </tr>
+                <tr>
+                    <td style="white-space:nowrap; padding: 7px">nro2126</td>
+                    <td style="white-space:nowrap; padding: 7px">17,000,000</td>
+                    <td style="white-space:nowrap; padding: 7px">Tài xỉu</td>
+                    <td style="white-space:nowrap; padding: 7px">Tài</td>
+                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                    <td style="white-space:nowrap; padding: 7px">01:35:10</td>
+                </tr>
+                <!-- <tr>
+                    <td colspan="9" class="text-center">Chưa thực hiện giao dịch nào</td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row" id="row-set-lich-su-tx" style="margin-bottom: 50px;padding-right: 15px;padding-left: 15px;">
+    <div class="col-lg-2 col text-dark" id="darkMode7">
+        <label>Hiện thị:</label>
+        <select id="isMe" class="form-control">
+        <option value="0">Tất cả</option>
+        <option value="1">Mình tôi</option>
+      </select>
+    </div>
+    <div class="col offset-lg-8 col text-dark" id="darkMode6">
+        <label>Bản ghi:</label>
+        <select id="record" class="form-control">
+        <option value="10">10 bản ghi</option>
+        <option value="20">20 bản ghi</option>
+        <option value="30">30 bản ghi</option>
+        <option value="50">50 bản ghi</option>
+        <option value="100">100 bản ghi</option>
+      </select>
+    </div>
+</div>
+<div class="modal fade" id="cuocTXHISModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-modal="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-sm text-center mt-1" style="width:100%">
+                    <thead>
+                        <tr class="bg bg-danger text-white">
+                            <th>Nhân vật</th>
+                            <th>Vàng đặt</th>
+                            <th>Cửa đặt</th>
+                            <th>Trạng thái</th>
+                            <th>Thời gian</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablecuoc"></tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

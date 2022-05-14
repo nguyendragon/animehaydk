@@ -1,0 +1,1145 @@
+table tr td,
+table th {
+    font-size: 11px;
+}
+
+@media (min-width: 991.98px) {
+    .li-login {
+        margin-right: 7px;
+    }
+    .btn-sv {
+        margin-right: 5px;
+    }
+    table tr td,
+    table th {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 751px) {
+    #diemdanh {
+        margin-top: 7px !important;
+    }
+}
+
+@media (max-width: 482.9px) {
+    #diemdanh {
+        margin-top: 7px;
+    }
+    #link-group-facebook {
+        margin-top: 7px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .li-login {
+        margin-bottom: 7px;
+        padding-top: 15px;
+    }
+    .li-item {
+        border-bottom: 2px solid white;
+    }
+    #bottomHeader {
+        padding-bottom: 15px;
+    }
+    #index-box-ketqua {
+        margin-bottom: 40px;
+    }
+    .btn-sv {
+        margin-bottom: 10px;
+        margin-right: 5px;
+    }
+    #vitri {
+        margin-top: 25px;
+    }
+    #chatGlobal {
+        height: 400px !important;
+        font-size: 13px;
+    }
+    #cardBodyKetQua {
+        padding-left: 15px;
+    }
+    #divNhanVang {
+        width: 20%;
+    }
+}
+
+.btn-sv {
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
+#endHeader {
+    margin-top: 15px;
+}
+
+.li-item {
+    padding: 0 3px;
+}
+
+.a-item {
+    color: white !important;
+}
+
+.a-item:hover {
+    color: red !important;
+}
+
+.dropdown-item:hover {
+    color: red !important;
+}
+
+.btn-login:hover {
+    background-color: green;
+}
+
+.btn-register:hover {
+    background-color: red;
+}
+
+nav {
+    position: sticky !important;
+}
+
+#row-footer {
+    padding: 30px 25px;
+}
+
+.dropdown-item:active {
+    background-color: white !important;
+}
+
+hr {
+    margin: auto !important;
+}
+
+.readonly {
+    cursor: not-allowed !important;
+}
+
+#diemDanhCard {
+    margin-top: 0.5rem;
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+#diemDanhCard .body {
+    padding: 1rem;
+}
+
+.color-main {
+    background-color: #f39c12 !important;
+    color: white;
+}
+
+.khung-tx .group-button .button.tai {
+    height: 100%;
+    width: 23%;
+    background-image: url("../image/taixiu/datcuoc.png");
+}
+
+.khung-tx .group-button .button.huy {
+    height: 100%;
+    width: 23%;
+    background-image: url("../image/taixiu/chontien.png");
+}
+
+.dragon {
+    -webkit-animation: spin 3s linear infinite;
+    -moz-animation: spin 3s linear infinite;
+    -o-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+
+.thongbao {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 46%;
+    padding: 7px 15px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.75);
+    text-shadow: 0 0 3px #000;
+    border-radius: 40px;
+    color: rgb(245, 242, 68);
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.khung-tx .panelgame {
+    margin-top: -34%;
+    margin-left: -110px;
+}
+
+.class-input {
+    border: 0 solid #fff;
+    background: rgba(255, 255, 255, 0);
+    text-align: center
+}
+
+@media(min-width:0px) and (max-width:480px) {
+    .khung-tx {
+        width: 100%!important
+    }
+    .chat-wrap {
+        width: 100%!important;
+        max-width: 250px!important;
+        display: none!important
+    }
+    .khung-tx .font_size_35 {
+        font-size: 5.5vw!important;
+        font-weight: 700
+    }
+    .khung-tx .font_size_25 {
+        font-size: 4.2vw!important;
+        font-weight: 700
+    }
+    .khung-tx .font_size_18 {
+        font-size: 3.7vw!important;
+        font-weight: 700
+    }
+    .khung-tx .font_size_100 {
+        font-size: 16vw!important;
+        font-weight: 700
+    }
+}
+
+#game-taixiu {
+    z-index: 100;
+    height: 0;
+    width: 100%;
+    font-weight: 700
+}
+
+#game-taixiu #khung-tx {
+    position: relative;
+    margin: auto
+}
+
+.khung-tx {
+    width: 55%;
+    display: block;
+    margin-bottom: 11%;
+    max-width: 600px;
+    position: relative;
+    float: left;
+    margin-right: -3%
+}
+
+.khung-tx .button-top {
+    right: 0;
+    top: 0;
+    z-index: 53;
+    width: 7.5%;
+    position: absolute;
+    cursor: pointer
+}
+
+.khung-tx .button-top img {
+    width: 100%;
+    cursor: pointer;
+    z-index: 100;
+    position: absolute
+}
+
+.khung-tx .button-top .thongbao_kq_thang {
+    position: absolute;
+    width: 175px;
+    margin-top: 329%;
+    margin-left: -766%;
+    padding: 7px 15px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.55);
+    text-shadow: 0 0 3px #000;
+    border-radius: 40px;
+    color: rgb(28 255 14);
+    transition: 0.5s;
+    opacity: 0;
+}
+
+@media(min-width:0px) and (max-width:480px) {
+    .khung-tx .button-top .thongbao_kq_thang {
+        position: absolute;
+        width: 132px;
+        margin-top: 322%;
+        margin-left: -793%;
+        padding: 3px 15px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.55);
+        text-shadow: 0 0 3px #000;
+        border-radius: 40px;
+        color: rgb(28 255 14);
+        transition: 0.5s;
+    }
+}
+
+.khung-tx .money-xiu,
+.khung-tx .money-tai {
+    color: #ff0;
+    text-shadow: 0 0 8px black, 0 0 8px #000;
+    text-align: center
+}
+
+.khung-tx .cuoc-xiu,
+.khung-tx .cuoc-tai {
+    color: #FF9800;
+    text-shadow: 0 0 8px black, 0 0 8px #000;
+    text-align: center;
+    font-weight: 600;
+    height: 15%;
+    margin-top: 39%;
+}
+
+.khung-tx .user-xiu,
+.khung-tx .user-tai {
+    color: #fff!important;
+    text-shadow: 0 0 8px black, 0 0 8px #000;
+    text-align: center;
+    height: 20%;
+    margin-left: 0;
+    width: 100%
+}
+
+.khung-tx .input-xiu,
+.khung-tx .input-tai {
+    color: #ff0!important;
+    font-weight: 600;
+    position: absolute;
+    text-align: center;
+    height: 20%;
+    margin-top: 0%;
+    width: 23%;
+    padding: 0;
+    z-index: 49;
+    cursor: pointer;
+    outline: unset!important
+}
+
+.khung-tx .input-cuoc-hide div {
+    height: 60%;
+    width: 97%;
+    margin-top: 8%;
+    border-radius: 25px;
+    border: 2px solid rgba(255, 255, 255, 0)
+}
+
+.khung-tx .input-cuoc-hide.active div {
+    animation: changesolid .35s infinite alternate;
+    -webkit-animation: changesolid .35s infinite alternate;
+    -moz-animation: changesolid .35s infinite alternate;
+    -ms-animation: changesolid .35s infinite alternate;
+    -o-animation: changesolid .35s infinite alternate
+}
+
+.placered::placeholder {
+    color: red!important
+}
+
+.placered::-ms-placeholder {
+    color: red!important
+}
+
+.placered::-moz-placeholder {
+    color: red!important
+}
+
+.placered::-webkit-input-placeholder {
+    color: red!important
+}
+
+.placered::-o-input-placeholder {
+    color: red!important
+}
+
+.placewhite::placeholder {
+    color: rgba(255, 255, 255, 0.8)!important
+}
+
+.placewhite::-ms-placeholder {
+    color: rgba(255, 255, 255, 0.8)!important
+}
+
+.placewhite::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.8)!important
+}
+
+.placewhite::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.8)!important
+}
+
+.placewhite::-o-input-placeholder {
+    color: rgba(255, 255, 255, 0.8)!important
+}
+
+.khung-tx .clock-big {
+    color: #fff;
+    text-shadow: 0 0 8px black, 0 0 8px #000;
+    font-weight: 800;
+    position: absolute;
+    top: 40%;
+    left: 50%
+}
+
+.khung-tx .btn-xiu,
+.khung-tx .btn-tai {
+    width: 6.0%;
+    float: left;
+    height: 100%;
+    border: 0;
+    background: url("../image/taixiu/ico_kq_xiu.png") 0 0 / cover no-repeat;
+    margin: 0 .5%;
+    cursor: pointer
+}
+
+.khung-tx .btn-tai {
+    background-image: url("../image/taixiu/ico_kq_tai.png")
+}
+
+.khung-tx .his {
+    float: left;
+    width: 57%;
+    text-align: center;
+    margin-left: 22.7%;
+    margin-top: -0.7%;
+    height: 14.8%;
+    margin-bottom: -1%;
+    padding: 2.2% 0;
+    padding-top: 2.55%;
+}
+
+.khung-tx .group-button {
+    float: left;
+    width: 100%;
+    text-align: center;
+    height: auto;
+    margin-top: 1.2%;
+    display: none;
+    -webkit-touch-callout: none!important;
+    -webkit-user-select: none!important;
+    -khtml-user-select: none!important;
+    -moz-user-select: none!important;
+    -ms-user-select: none!important;
+    user-select: none!important
+}
+
+.khung-tx .group-button .button {
+    cursor: pointer;
+    width: 19.6%;
+    height: 85%;
+    float: left;
+    margin: .25% .5%;
+    background: url(../image/taixiu/khungtien.png) 0 0 / cover no-repeat;
+    position: relative;
+    background-size: 100% 100%
+}
+
+.khung-tx .group-button .button.blue {
+    height: 100%;
+    width: 23%;
+    margin-left: 16%;
+    background-image: url(../image/taixiu/btn-red.png)
+}
+
+.khung-tx .group-button .button.green {
+    height: 100%;
+    width: 23%;
+    background-image: url(../image/taixiu/green.png)
+}
+
+.khung-tx .group-button .button.red {
+    height: 100%;
+    width: 23%;
+    background-image: url(../image/taixiu/red.png)
+}
+
+.khung-tx .group-button .middle {
+    position: absolute;
+    white-space: nowrap;
+    color: #262626;
+    /*text-shadow: 0 0 8px black, 0 0 8px #000*/
+}
+
+.khung-tx .group-button .middle:after {
+    content: attr(data-txt)
+}
+
+.khung-tx .his div:hover~ :nth-child(14) {
+    -webkit-animation: none!important;
+    -moz-animation: none!important;
+    -o-animation: none!important;
+    animation: none!important
+}
+
+.khung-tx .his div:hover {
+    animation: updown .5s infinite alternate;
+    -webkit-animation: updown .5s infinite alternate;
+    -moz-animation: updown .5s infinite alternate;
+    -ms-animation: updown .5s infinite alternate;
+    -o-animation: updown .5s infinite alternate
+}
+
+.khung-tx .his div:nth-child(14) {
+    animation: updown .5s infinite alternate;
+    -webkit-animation: updown .5s infinite alternate;
+    -moz-animation: updown .5s infinite alternate;
+    -ms-animation: updown .5s infinite alternate;
+    -o-animation: updown .5s infinite alternate
+}
+
+.btn-cuocMoney {
+    outline: 0;
+    padding: .5%;
+    color: #333;
+    border-radius: 5px;
+    background-color: #fff;
+    border-color: #ccc;
+    box-shadow: 0 0 5px 3px #000;
+    border: 0 solid #000;
+    font-weight: 900;
+    cursor: pointer
+}
+
+.btn-cuocMoney:hover,
+.btn-cuocMoney:focus {
+    background-color: #673AB7!important;
+    color: #fff!important
+}
+
+.btn-tattay {
+    outline: 0;
+    transform: scale(0.95);
+    padding: .5%;
+    color: #fff;
+    text-shadow: 0 0 3px black, 0 0 3px #000;
+    border-radius: 5px;
+    background-color: #f55541;
+    border-color: #ccc;
+    box-shadow: 0 0 5px 3px #000;
+    border: 0 solid #000;
+    font-weight: 900;
+    cursor: pointer
+}
+
+.btn-cancel {
+    outline: 0;
+    transform: scale(0.95);
+    padding: .5%;
+    color: #fff;
+    text-shadow: 0 0 3px black, 0 0 3px #000;
+    border-radius: 5px;
+    background-color: #f0ad4e;
+    border-color: #ccc;
+    box-shadow: 0 0 5px 3px #000;
+    border: 0 solid #000;
+    font-weight: 900;
+    cursor: pointer
+}
+
+.btn-agree {
+    outline: 0;
+    transform: scale(0.95);
+    padding: .5%;
+    color: #fff;
+    text-shadow: 0 0 3px black, 0 0 3px #000;
+    border-radius: 5px;
+    background-color: #00a65a;
+    border-color: #ccc;
+    box-shadow: 0 0 5px 3px #000, 0 0 5px 3px #000;
+    border: 0 solid #000;
+    font-weight: 900;
+    cursor: pointer
+}
+
+.khung-tx .tai-wrap,
+.khung-tx .xiu-wrap {
+    width: 23%;
+    height: 60%;
+    float: left;
+    margin-top: 5%
+}
+
+.khung-tx .tai-wrap .money-tai,
+.khung-tx .xiu-wrap .money-xiu {
+    height: 20%;
+    margin-top: 0%;
+    width: 100%;
+    line-height: 2.9;
+}
+
+.khung-tx .tai-wrap .icon,
+.khung-tx .xiu-wrap .icon {
+    background: url("../image/taixiu/tai_default.png") 0 0 /cover no-repeat;
+    width: 60%;
+    height: 28%;
+    margin-left: 20%;
+    margin-top: 16px;
+    animation: zoomout 0.2s ease-in-out infinite alternate;
+}
+
+.khung-tx .xiu-wrap .icon {
+    background-image: url("../image/taixiu/xiu_default.png");
+    animation: zoomout 0.2s ease-in-out infinite alternate;
+}
+
+.khung-tx .tai-wrap .icon.kq {
+    background-image: url("../image/taixiu/tai_on.png")!important;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    -webkit-animation: zoomout .5s infinite alternate;
+    -moz-animation: zoomout .5s infinite alternate;
+    animation: zoomout .5s infinite alternate
+}
+
+.khung-tx .xiu-wrap .icon.kq {
+    background-image: url(../image/taixiu/xiu_on.png)!important;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    -webkit-animation: zoomout .5s infinite alternate;
+    -moz-animation: zoomout .5s infinite alternate;
+    animation: zoomout .5s infinite alternate
+}
+
+.khung-tx #vung-taixiu {
+    margin-top: 0;
+    margin-left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url(../image/taixiu/bat.png) 0 0 / cover no-repeat;
+    border: 0 solid #fff;
+    z-index: 51;
+    cursor: pointer;
+    display: none
+}
+
+.khung-tx .clock,
+.khung-tx .clock img {
+    position: absolute;
+    width: 100%;
+    height: 100%
+}
+
+.khung-tx #game-taixiu2 {
+    width: 32%;
+    height: 60%;
+    float: left;
+    margin-top: 10%;
+    position: relative;
+    background-position: center;
+    background-size: 100%
+}
+
+.khung-tx #game-taixiu2.nantx .vung {
+    display: block
+}
+
+.khung-tx #game-taixiu2 #vung-taixiu .vung_number span {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle
+}
+
+.khung-tx #game-taixiu2 #vung-taixiu .vung_number {
+    display: table;
+    width: 30%;
+    height: 32%;
+    background: #000;
+    border-radius: 50%;
+    color: #fff;
+    margin-top: 50%;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%)
+}
+
+.khung-tx #game-taixiu2 .kq-num div {
+    position: absolute
+}
+
+.khung-tx #game-taixiu2 .kq-num {
+    position: absolute;
+    height: 26%;
+    width: 25%;
+    margin-top: 10%;
+    margin-left: 81%;
+    opacity: 1;
+    border: 1.5px solid;
+    border-radius: 50%;
+    background: #ff0119;
+    color: #fff
+}
+
+.khung-tx #game-taixiu2 .roll-play {
+    position: absolute;
+    top: -30%;
+    width: 100%;
+    height: 22%;
+    text-align: center;
+    color: #fff;
+    border-radius: 15px;
+    text-shadow: 0 0 4px black, 0 0 4px black, 0 0 4px #000
+}
+
+.khung-tx #game-taixiu2 .clock-small {
+    z-index: 100;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    top: 80%;
+    width: 25%;
+    height: 22%;
+    left: 50%;
+    line-height: 2.4;
+    text-align: center;
+    color: red;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    border-radius: 15px
+}
+
+.khung-tx #game-taixiu2.time .vung,
+.khung-tx #game-taixiu2.time .effect,
+.khung-tx #game-taixiu2.time .clock-small,
+.khung-tx #game-taixiu2.time .kq-num {
+    display: block
+}
+
+.khung-tx #game-taixiu2.time .clock-big {
+    display: block
+}
+
+.chat-wrap {
+    width: 25%;
+    display: block;
+    max-width: 270px;
+    position: relative;
+    float: left
+}
+
+.chat-wrap.off {
+    display: none
+}
+
+.chat-wrap .chat-content {
+    height: 72%;
+    overflow: hidden;
+    padding: 10% 10% 0;
+    position: relative
+}
+
+.chat-wrap .chat-inner {
+    overflow: hidden;
+    height: 100%
+}
+
+.chat-wrap .chat-footer {
+    width: 93%;
+    height: 14%;
+    margin-top: 1%;
+    background: none;
+    font-size: 20px;
+    font-weight: 600
+}
+
+.chat-wrap .chat-input {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: 0 solid #fff;
+    padding: 0 12%;
+    color: #fff;
+    z-index: 49
+}
+
+.chat-wrap .chat-inner p {
+    margin: 0;
+    color: #fff;
+    line-height: 1.05;
+    cursor: default
+}
+
+.chat-wrap .chat-inner p .u-name {
+    color: #CDDC39;
+    font-weight: 400
+}
+
+.khung-tx .effect {
+    background: url(./lib/img/tx/ef.png) 0 0 / cover no-repeat;
+    visibility: visible;
+    z-index: 5;
+    height: 100%;
+    margin-top: -8%;
+    opacity: 1
+}
+
+.khung-tx .his .tooltip_tx {
+    position: absolute;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 3px 15px;
+    margin-top: 4%;
+    left: 12.5%;
+    white-space: nowrap;
+    z-index: 49;
+    display: none
+}
+
+.khung-tx .clogame {
+    margin-left: -140%;
+    width: 130%
+}
+
+.khung-tx .wingame,
+.khung-tx .allgame {
+    margin-top: 110%;
+    margin-left: -42%
+}
+
+.khung-tx .hisgame {
+    margin-top: 144%;
+    margin-left: -22%;
+}
+
+.khung-tx .guigame {
+    margin-top: 365%;
+    margin-left: 0
+}
+
+.khung-tx .chatgame {
+    margin-top: 511%;
+    margin-left: -90%
+}
+
+.khung-tx .nangame {
+    margin-top: 430%;
+    margin-left: -525%
+}
+
+.khung-tx .clock-big.middle {
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -webkit-touch-callout: none!important;
+    -webkit-user-select: none!important;
+    -khtml-user-select: none!important;
+    -moz-user-select: none!important;
+    -ms-user-select: none!important;
+    user-select: none!important;
+}
+
+.khung-tx .clock-big .txx {
+    line-height: 22px;
+    font-size: 100px;
+}
+
+.khung-tx .middle {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -webkit-touch-callout: none!important;
+    -webkit-user-select: none!important;
+    -khtml-user-select: none!important;
+    -moz-user-select: none!important;
+    -ms-user-select: none!important;
+    user-select: none!important;
+}
+
+.responsive1 {
+    width: 100%;
+    max-width: 20px;
+    margin-left: 15px;
+    height: auto;
+    transform: scale(3) rotate(-30deg);
+}
+
+.responsive2 {
+    width: 100%;
+    max-width: 20px;
+    height: auto;
+    transform: scale(3) rotate(20deg);
+}
+
+.responsive3 {
+    width: 100%;
+    max-width: 20px;
+    height: auto;
+    transform: scale(3) rotate(5deg);
+}
+
+.khung-tx .wingame,
+.khung-tx .nan {
+    z-index: 100;
+    width: 108%!important;
+    margin-top: 424%;
+    margin-left: -475%;
+}
+
+.khung-tx .nangame {
+    margin-top: 120%;
+    margin-left: -33%;
+}
+
+.khung-tx .effect2 {
+    visibility: visible;
+    z-index: 5;
+    height: 100%;
+    margin-top: -8%;
+    opacity: 1;
+}
+
+.khung-tx .clock-big {
+    color: #fff;
+    text-shadow: 0 0 8px black, 0 0 8px #000;
+    font-weight: 800;
+    position: absolute;
+    top: 42%;
+    left: 54%;
+}
+
+@media(min-width:0px) and (max-width:480px) {
+    .khung-tx {
+        width: 100%!important
+    }
+    .chat-wrap {
+        width: 100%!important;
+        max-width: 250px!important;
+        display: none!important
+    }
+    .khung-tx .font_size_35 {
+        font-size: 5.2vw!important;
+        font-weight: 700
+    }
+    .khung-tx .font_size_25 {
+        font-size: 3.2vw!important;
+        font-weight: 700
+    }
+    .khung-tx .font_size_18 {
+        font-size: 3.5vw!important;
+        font-weight: 700
+    }
+    .khung-tx .font_size_100 {
+        font-size: 16vw!important;
+        font-weight: 700
+    }
+    .khung-tx .tai-wrap .icon,
+    .khung-tx .xiu-wrap .icon {
+        margin-top: 10px!important;
+    }
+    .khung-tx .clock-big .txx {
+        line-height: 22px;
+        font-size: 80px;
+    }
+}
+
+#bangcuoc .button.money.row-1,
+#bangcuoc .button.money.row-2 {
+    margin-left: 11%;
+}
+
+.khung-tx .xiu-wrap {
+    margin-left: 12px;
+}
+
+@-webkit-keyframes zoomout {
+    from {
+        -webkit-transform: scale(0.9);
+    }
+    to {
+        -webkit-transform: scale(1.1);
+    }
+}
+
+@-moz-keyframes zoomout {
+    from {
+        -moz-transform: scale(0.9);
+    }
+    to {
+        -moz-transform: scale(1.1);
+    }
+}
+
+@-ms-keyframes zoomout {
+    from {
+        -ms-transform: scale(0.9);
+    }
+    to {
+        -ms-transform: scale(1.1);
+    }
+}
+
+@-o-keyframes zoomout {
+    from {
+        -o-transform: scale(0.9);
+    }
+    to {
+        -o-transform: scale(1.1);
+    }
+}
+
+@keyframes zoomout {
+    from {
+        transform: scale(0.9);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+a {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+#chatGlobal {
+    height: 647px;
+    overflow: auto;
+}
+
+#top1 td {
+    font-size: 21px !important;
+    color: #ff0000;
+}
+
+#top2 td {
+    font-size: 17px !important;
+    color: #ff4000;
+}
+
+#top3 td {
+    font-size: 15px !important;
+    color: #ff5000;
+}
+
+#divNhanVang {
+    display: block;
+    position: fixed;
+    bottom: 25px;
+    left: 15px;
+    width: 10%;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+#divBangHoi {
+    display: block;
+    position: fixed;
+    bottom: 15px;
+    left: 5px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.site-tabbar {
+    height: 50px;
+}
+
+.van-tabbar--fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.van-tabbar-item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    color: #646566;
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.van-tabbar-item__icon {
+    position: relative;
+    margin-bottom: 4px;
+    font-size: 22px;
+}
+
+.van-tabbar-item__icon img {
+    display: block;
+    height: 20px;
+}
+
+.van-tabbar-item--active {
+    background-color: #fff;
+    color: rgb(0, 184, 169);
+}
+
+.van-tabbar {
+    z-index: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    box-sizing: content-box;
+    width: 100%;
+    height: 50px;
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+    background-color: #fff;
+}
+
+.my {
+    padding: 16px;
+}
+
+.container-fluid .my {
+    background: url('/images/transction-bgimg.png') center no-repeat;
+    width: 100%;
+    overflow: hidden;
+    background-size: cover;
+    color: #fefefe;
+    font-size: 16px;
+}
+
+.van-button__text img {
+    width: 65px;
+}
+
+.van-button--mini:active .van-button__text img {
+    background: #000;
+    padding: 6px;
+    opacity: 0.1;
+}
+
+.bottom-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.my .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.my .top button {
+    height: 24px;
+    background: none;
+    border: none;
+}

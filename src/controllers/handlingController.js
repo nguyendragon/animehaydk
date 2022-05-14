@@ -192,7 +192,42 @@ const add_tage_woipy = async(req, res) => {
     handlingOrder();
 }
 
+// Thêm cầu mini game
+const add_minigame = async(req, res) => {
+    // 0. Chờ
+    // 1. Thắng
+    // 2. Thua
+
+    var time = TimeCreate();
+    // lấy ra giai đoạn hiện tại
+    const [minigame] = await connection.execute('SELECT * FROM `minigame` WHERE `ket_qua` = 0 ORDER BY `id` DESC LIMIT 1 ', []);
+    const giai_doan = minigame[0];
+
+    const [get_ket_qua] = await connection.execute('SELECT `minigame` FROM `temp` ', []);
+    var update_kq = 0;
+
+    function createKQ(params) {
+        if (params == 0) {
+            return update_kq = Math.floor(Math.random() * (98 - 0)) + 0; // Ra kết quả trong cầu cũ
+        } else {
+            return update_kq = params;
+        }
+    }
+    update_kq = await createKQ(get_ket_qua[0].minigame);
+
+    const sql4 = 'UPDATE `minigame` SET `ket_qua` = ? WHERE `ket_qua` = 0';
+    const sql2 = 'UPDATE `bet_minigame` SET `ket_qua` = ? WHERE `ket_qua` = 0';
+    const sql = 'INSERT INTO `minigame` SET `ma_phien` = ?, `ket_qua` = 0, `time` = ?';
+    const sql3 = 'UPDATE `temp` SET `minigame` = ?';
+    await connection.execute(sql2, [update_kq]);
+    await connection.execute(sql4, [update_kq]);
+    await connection.execute(sql3, [0]);
+    await connection.execute(sql, [giai_doan.ma_phien + 1, time]);
+    // handlingOrder();
+}
+
 module.exports = {
     add_tage_woipy,
     handlingOrder,
+    add_minigame
 }

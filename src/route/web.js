@@ -4,13 +4,19 @@ import parityController from '../controllers/parityController';
 import loginController from '../controllers/loginController';
 import middlewareController from '../controllers/middlewareController';
 import adminController from '../controllers/adminController';
+import miniGameController from '../controllers/miniGameController';
 
 const router = express.Router();
 
 const initWebRoutes = (app) => {
     router.get('/', (req, res) => {
-        return res.redirect('/parity/tran');
+        return res.redirect('/index');
     });
+
+    // mini game
+    router.get('/index', miniGameController.getPageMiniGame);
+    router.post('/minigame/api/v1', middlewareController, miniGameController.joinBetMiniGame);
+
 
     // Login
     router.get('/account/login', loginController.getPageLogin);

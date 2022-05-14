@@ -1,0 +1,40 @@
+<div class="card-body bg-light text-dark" id="cardBodyKetQua">
+  <p class="card-text">
+    <% if (listKQ0.length > 0) { %>
+    Mã phiên: <span id="idCsmm" class="font-weight-bold text-danger">#<%=listKQ[0].ma_phien%></span><br> Kết quả trước đó: <span class="text-danger font-weight-bold" id="result"><%=(listKQ0[0].ket_qua < 10) ? "0" + listKQ0[0].ket_qua : listKQ0[0].ket_qua %></span><br>
+    <% } %>
+    Thời gian còn: <span class="text-danger font-weight-bold"><span id="seccond">0</span> giây</span>
+    <img id="loadding" style="margin-left: 3px;" src="/images/loading2.gif" alt="" width="auto" height="20px" hidden=""><br> Chẵn: <span id="goldChan" class="font-weight-bold text-danger" data-money="11115540">0</span> - Lẻ: <span id="goldLe" class="font-weight-bold text-primary" data-money="1111101">0</span><br> Tài: <span id="goldTai" class="font-weight-bold text-danger" data-money="1111101">0</span> - Xỉu: <span id="goldXiu" class="font-weight-bold text-primary" data-money="902389393">0</span><br>
+
+    <!-- adding no hu -->
+    <!-- Nổ hũ: <span id="goldNohu" class="font-weight-bold text-danger" data-money="143902389393">0</span><span data-toggle="modal" data-target="#modalnohu" id="chitiethu" class="font-weight-bold text-primary" style="cursor: pointer;"> -
+      Chi Tiết</span>
+    <br> -->
+    <!-- adding no hu -->
+
+    <!-- Thời gian hoạt động: <span id="time" class="font-weight-bold text-danger">8h - 22h</span> -->
+  </p>
+  <p style="margin-bottom: 7px;">
+    CL:
+    <span id="resultCL">
+      <% if (listKQ0.length > 0) { 
+            for (var i = listKQ0.length - 1; i >= 0; i--) {
+            if (listKQ0[i].ket_qua % 2 == 0)  { %>
+      <span class="rounded-circle bg-info text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">C</span>
+      <% } else { %>
+      <span class="rounded-circle bg-warning text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">L</span>
+      <% }}} %>
+    </span>
+  </p>
+  <p style="margin-bottom: 7px;">
+    TX: <span id="resultTX">
+      <% if (listKQ0.length > 0) { 
+            for (var i = listKQ0.length - 1; i >= 0; i--) {
+            if (listKQ0[i].ket_qua <= 49)  { %>
+      <span class="rounded-circle bg-danger text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">X</span>
+      <% } else { %>
+      <span class="rounded-circle bg-success text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">T</span>
+      <% }}} %>
+    </span>
+  </p>
+</div>
