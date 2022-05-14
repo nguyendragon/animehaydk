@@ -4,7 +4,11 @@
     Mã phiên: <span id="idCsmm" class="font-weight-bold text-danger">#<%=listKQ[0].ma_phien%></span><br> Kết quả trước đó: <span class="text-danger font-weight-bold" id="result"><%=(listKQ0[0].ket_qua < 10) ? "0" + listKQ0[0].ket_qua : listKQ0[0].ket_qua %></span><br>
     <% } %>
     Thời gian còn: <span class="text-danger font-weight-bold"><span id="seccond">0</span> giây</span>
-    <img id="loadding" style="margin-left: 3px;" src="/images/loading2.gif" alt="" width="auto" height="20px" hidden=""><br> Chẵn: <span id="goldChan" class="font-weight-bold text-danger" data-money="11115540">0</span> - Lẻ: <span id="goldLe" class="font-weight-bold text-primary" data-money="1111101">0</span><br> Tài: <span id="goldTai" class="font-weight-bold text-danger" data-money="1111101">0</span> - Xỉu: <span id="goldXiu" class="font-weight-bold text-primary" data-money="902389393">0</span><br>
+    <img id="loadding" style="margin-left: 3px;" src="/images/loading2.gif" alt="" width="auto" height="20px" hidden=""><br> 
+    Chẵn: <span id="goldChan" class="font-weight-bold text-danger" data-money="<%=(chan[0].totalChan) ? chan[0].totalChan : 0 %>">0</span> 
+    - Lẻ: <span id="goldLe" class="font-weight-bold text-primary" data-money="<%=(le[0].totalLe) ? le[0].totalLe : 0%>">0</span><br> 
+    Tài: <span id="goldTai" class="font-weight-bold text-danger" data-money="<%=(tai[0].totalTai) ? tai[0].totalTai : 0%>">0</span> 
+    - Xỉu: <span id="goldXiu" class="font-weight-bold text-primary" data-money="<%=(xiu[0].totalXiu) ? xiu[0].totalXiu : 0%>">0</span><br>
 
     <!-- adding no hu -->
     <!-- Nổ hũ: <span id="goldNohu" class="font-weight-bold text-danger" data-money="143902389393">0</span><span data-toggle="modal" data-target="#modalnohu" id="chitiethu" class="font-weight-bold text-primary" style="cursor: pointer;"> -

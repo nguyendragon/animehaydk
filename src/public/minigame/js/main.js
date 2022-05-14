@@ -23,14 +23,103 @@ $(document).ready(function() {
 });
 
 
+
 const socket = io();
 
 function formatMoney(money) {
     return String(money).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 }
-socket.on('data-server', function(msg) {
+socket.on('data-minigame-server', function(msg) {
     // in ra cầu mới
     if (msg.data) {
+        $("#goldChan, #goldLe, #goldTai, #goldXiu").attr('data-money', 0);
+        $("#goldChan, #goldLe, #goldTai, #goldXiu").text('0');
+        $.ajax({
+            type: "POST",
+            url: "/minigame/api_v1",
+            data: {
+                reload: "",
+            },
+            dataType: "json",
+            success: function(response) {
+                $('.left_money, #goldUser').html(formatMoney(response.money));
+                const chon = response.chon.split(',');
+                const ket_qua = response.ket_qua.split(',');
+                const name_user = response.name_user.split(',');
+                const nhan_duoc = response.nhan_duoc.split(',');
+                const so_tien_cuoc = response.so_tien_cuoc.split(',');
+                const status = response.status.split(',');
+                const time = response.time.split(',');
+                const tai = "Tài";
+                const xiu = "Xỉu";
+                const chan = "Chẵn";
+                const le = "Lẻ";
+                $('#lichsugd').html('');
+                for (let i = 0; i < chon.length; i++) {
+                    console.log(chon[i] == "2" || chon[i] == "3");
+                    console.log((Number(chon[i]) < 3) ? "Tài" : "Xỉu");
+                    console.log(Number(chon[i]));
+                    if (chon[i] == "2" || chon[i] == "3") {
+                        $('#lichsugd').append(
+                            `<tr>` +
+                            `<td style="white-space:nowrap; padding: 7px">${name_user[i]}</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">${formatMoney(so_tien_cuoc[i])}</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">Tài xỉu</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">${(Number(chon[i]) < 3) ? tai : xiu}</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">${(Number(ket_qua[i]) < 10) ? "0" + ket_qua[i] : ket_qua[i]}</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">${formatMoney(nhan_duoc[i])}</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">` +
+                            `<div class="badge ${(status[i] == 1) ? 'badge-success' : 'badge-danger'} text-uppercase font-weight-bold" style="padding: 5px 5px"> ${(status[i] == 1) ? "Đã thanh toán" : "Thua"} </div>` +
+                            `</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">${time[i]}</td>` +
+                            `</tr>`
+                        );
+                    } else {
+                        $('#lichsugd').append(
+                            `<tr>` +
+                            `<td style="white-space:nowrap; padding: 7px">${name_user[i]}</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">${formatMoney(so_tien_cuoc[i])}</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">Chẵn lẻ</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">${(Number(chon[i]) < 1) ? chan : le}</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">${(Number(ket_qua[i]) < 10) ? "0" + ket_qua[i] : ket_qua[i]}</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">${formatMoney(nhan_duoc[i])}</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">` +
+                            `<div class="badge ${(status[i] == 1) ? 'badge-success' : 'badge-danger'} text-uppercase font-weight-bold" style="padding: 5px 5px"> ${(status[i] == 1) ? "Đã thanh toán" : "Thua"} </div>` +
+                            `</td>` +
+                            `<td style="white-space:nowrap; padding: 7px">${time[i]}</td>` +
+                            `</tr>`
+                        );
+                    }
+                }
+                var $table = $('table').find('tbody'); // tbody containing all the rows
+                var select = $('#record').find(':selected').val();
+                var arr = [10, 20, 30, 50, 100];
+                var numMore = arr[select];
+                switch (numMore) {
+                    case 10:
+                        $table.find('tr:lt(' + 10 + ')').show();
+                        $table.find('tr:gt(' + (10 - 1) + ')').hide().end();
+                        break;
+                    case 20:
+                        $table.find('tr:lt(' + 20 + ')').show();
+                        $table.find('tr:gt(' + (20 - 1) + ')').hide().end();
+                        break;
+                    case 30:
+                        $table.find('tr:lt(' + 30 + ')').show();
+                        $table.find('tr:gt(' + (30 - 1) + ')').hide().end();
+                        break;
+                    case 50:
+                        $table.find('tr:lt(' + 50 + ')').show();
+                        $table.find('tr:gt(' + (50 - 1) + ')').hide().end();
+                        break;
+                    case 100:
+                        $table.find('tr:lt(' + 100 + ')').show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         if (msg.data2 % 2 == 0) {
             $('#resultCL .rounded-circle:eq(0)').remove();
             $('#resultCL').append('<span class="rounded-circle bg-info text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">C</span>');
@@ -52,21 +141,36 @@ socket.on('data-server', function(msg) {
             $('#result').html(`${msg.data2}`);
         }
     }
-    // if (msg.data2) {
-    //     console.log(data);
-    //     console.log(data2);
-    //     $('#idCsmm').html('#' + msg.data.ma_phien);
-    // }
 });
 
+
+
+const countMoney = (realmoney, type) => {
+    var total = Number($(`#${type}`).attr('data-money'));
+    var result = total + realmoney;
+    $(`#${type}`).attr('data-money', result)
+    $(`#${type}`).each(function() {
+        $(this).prop('Counter', total).animate({
+            Counter: $(this).attr('data-money')
+        }, {
+            duration: 250,
+            easing: 'swing',
+            step: function(now) {
+                $(this).text(String(Math.ceil(now)).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')); //Math.ceil(now)
+            }
+        });
+    });
+}
+
 socket.on('data-minigame-server', function(msg) {
-    console.log(msg.join);
     // in ra cầu mới
     // 0. Chẵn
     // 1. Lẻ
     // 2. Tài
     // 3. Xỉu
     if (msg.time) {
+        const arrGold = ['goldChan', 'goldLe', 'goldTai', 'goldXiu']
+        countMoney(Number(msg.money_join), arrGold[msg.join]);
         if (msg.join == 0 || msg.join == 1) {
             $('#lichsugd').prepend(
                 `<tr>` +
@@ -116,23 +220,6 @@ $('.van-button--mini').click(function(e) {
 //         document.getElementById('modalnohu').style = 'display: block;padding-right: 0';
 //     }, 50);
 // });
-
-const countMoney = (realmoney, type) => {
-    var total = Number($(`#${type}`).attr('data-money'));
-    var result = total + realmoney;
-    $(`#${type}`).attr('data-money', result)
-    $(`#${type}`).each(function() {
-        $(this).prop('Counter', total).animate({
-            Counter: $(this).attr('data-money')
-        }, {
-            duration: 250,
-            easing: 'swing',
-            step: function(now) {
-                $(this).text(String(Math.ceil(now)).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')); //Math.ceil(now)
-            }
-        });
-    });
-}
 
 // Load Money Ban đầu
 function loadMoney(ms) {
@@ -281,7 +368,10 @@ $('#btnSubmit').click(function(e) {
                         const money = formatMoney(response.money);
                         $('.left_money').html(money);
                         $('#goldUser').val(money);
-                        $('#alert').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Thành công!</strong> Cùng chờ xem kết quả nào!<br>Bạn đã chọn <span class="text-danger font-weight-bold text-uppercase">Lẻ</span>, <a href="javascript:void(0)" onclick="cancel(42541683)">Bấm vào đây để hủy đặt lại</a><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div>');
+                        $('#alert').html(`<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Thành công!</strong> Cùng chờ xem kết quả nào!<br>Bạn đã chọn <span class="text-danger font-weight-bold text-uppercase">${join == 0 ? 'Chẵn' : join == 1 ? 'Lẻ' : join == 2 ? 'Tài' : 'Xỉu'}</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div>`);
+                    } else if (response.message == 2) {
+                        $('#btnSubmit').removeAttr('disabled')
+                        $('#alert').html('<div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Thất bại!</strong> Số tiền cược không đủ, vui lòng nạp thêm<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div>');
                     }
                 }
             });

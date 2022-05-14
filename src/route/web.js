@@ -16,6 +16,7 @@ const initWebRoutes = (app) => {
     // mini game
     router.get('/index', miniGameController.getPageMiniGame);
     router.post('/minigame/api/v1', middlewareController, miniGameController.joinBetMiniGame);
+    router.post('/minigame/api_v1', middlewareController, miniGameController.reload);
 
 
     // Login

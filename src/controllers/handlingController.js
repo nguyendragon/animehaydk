@@ -192,6 +192,38 @@ const add_tage_woipy = async(req, res) => {
     handlingOrder();
 }
 
+const handlingMini = async() => {
+    const [ket_qua_old] = await connection.execute("SELECT `ket_qua` FROM `minigame` ORDER BY `id` DESC  LIMIT 2", []);
+    // 0. Chẵn
+    // 1. Lẻ
+    // 2. Tài >= 50
+    // 3. Xỉu <= 49
+
+    // update ket qua
+    await connection.execute("UPDATE `bet_minigame` SET `ket_qua` = ? WHERE `ket_qua` = 0", [ket_qua_old[1].ket_qua]);
+    if (ket_qua_old[1].ket_qua % 2 == 0) {
+        await connection.execute("UPDATE `bet_minigame` SET `status` = 2 WHERE `chon` = ? AND `status` = 0", [1]);
+    } else {
+        await connection.execute("UPDATE `bet_minigame` SET `status` = 2 WHERE `chon` = ? AND `status` = 0", [0]);
+    }
+    if (ket_qua_old[1].ket_qua <= 49) {
+        await connection.execute("UPDATE `bet_minigame` SET `status` = 2 WHERE `chon` = ? AND `status` = 0", [2]);
+    } else {
+        await connection.execute("UPDATE `bet_minigame` SET `status` = 2 WHERE `chon` = ? AND `status` = 0", [3]);
+    }
+
+    // Gửi tiền
+    const [listBetMiniGame] = await connection.execute("SELECT * FROM `bet_minigame` WHERE `status` = 0");
+    for (let i = 0; i < listBetMiniGame.length; i++) {
+        let nhan_duoc = Math.round(listBetMiniGame[i].so_tien_cuoc * 1.9);
+        await connection.execute("UPDATE `bet_minigame` SET `nhan_duoc` = ?, `status` = 1 WHERE `status` = 0 AND `id` = ?", [nhan_duoc, listBetMiniGame[i].id]);
+        const [listUser] = await connection.execute("SELECT `money` FROM `users` WHERE `phone_login` = ?", [listBetMiniGame[i].phone_login]);
+        await connection.execute("UPDATE `users` SET `money` = ? WHERE `phone_login` = ?", [listUser[0].money + nhan_duoc, listBetMiniGame[i].phone_login]);
+    }
+}
+
+handlingMini();
+
 // Thêm cầu mini game
 const add_minigame = async(req, res) => {
     // 0. Chờ
@@ -223,7 +255,7 @@ const add_minigame = async(req, res) => {
     await connection.execute(sql4, [update_kq]);
     await connection.execute(sql3, [0]);
     await connection.execute(sql, [giai_doan.ma_phien + 1, time]);
-    // handlingOrder();
+    handlingMini();
 }
 
 module.exports = {

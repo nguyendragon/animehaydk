@@ -17,41 +17,55 @@
                 </tr>
             </thead>
             <tbody id="lichsugd" class="text-dark">
-                <tr>
-                    <td style="white-space:nowrap; padding: 7px">tayto</td>
-                    <td style="white-space:nowrap; padding: 7px">450,005,000</td>
-                    <td style="white-space:nowrap; padding: 7px">Tài xỉu</td>
-                    <td style="white-space:nowrap; padding: 7px">Xỉu</td>
-                    <td style="white-space:nowrap; padding: 7px">17</td>
-                    <td style="white-space:nowrap; padding: 7px">855,009,500</td>
-                    <td style="white-space:nowrap; padding: 7px">
-                        <div class="badge badge-success text-uppercase font-weight-bold" ;="" style="padding: 5px 5px"> Đã thanh toán </div>
-                    </td>
-                    <td style="white-space:nowrap; padding: 7px">13:03:14</td>
-                </tr>
-                <tr>
-                    <td style="white-space:nowrap; padding: 7px">siwuwuwj</td>
-                    <td style="white-space:nowrap; padding: 7px">32,380,000</td>
-                    <td style="white-space:nowrap; padding: 7px">Chẵn lẻ</td>
-                    <td style="white-space:nowrap; padding: 7px">Chẵn</td>
-                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
-                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
-                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
-                    <td style="white-space:nowrap; padding: 7px">01:35:59</td>
-                </tr>
-                <tr>
-                    <td style="white-space:nowrap; padding: 7px">nro2126</td>
-                    <td style="white-space:nowrap; padding: 7px">17,000,000</td>
-                    <td style="white-space:nowrap; padding: 7px">Tài xỉu</td>
-                    <td style="white-space:nowrap; padding: 7px">Tài</td>
-                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
-                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
-                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
-                    <td style="white-space:nowrap; padding: 7px">01:35:10</td>
-                </tr>
-                <!-- <tr>
-                    <td colspan="9" class="text-center">Chưa thực hiện giao dịch nào</td>
-                </tr> -->
+                <% if (bet_minigame.length > 0) { 
+                    for (var i = 0; i < bet_minigame.length; i++) { 
+                        if (bet_minigame[i].chon == 2 || bet_minigame[i].chon == 3) {%>
+                            <tr>
+                                <td style="white-space:nowrap; padding: 7px"><%=bet_minigame[i].name_user%></td>
+                                <td style="white-space:nowrap; padding: 7px"><%=String(bet_minigame[i].so_tien_cuoc).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');%></td>
+                                <td style="white-space:nowrap; padding: 7px">Tài xỉu</td>
+                                <td style="white-space:nowrap; padding: 7px"><%=(bet_minigame[i].chon == 2) ? "Tài" : "Xỉu"%></td>
+                                <% if (bet_minigame[i].status == 0) { %>
+                                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                                    <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                                <% } else { %>
+                                    <td style="white-space:nowrap; padding: 7px">
+                                        <%=(bet_minigame[i].ket_qua < 10) ? "0" + bet_minigame[i].ket_qua : bet_minigame[i].ket_qua%>
+                                    </td>
+                                    <td style="white-space:nowrap; padding: 7px"><%=String(bet_minigame[i].nhan_duoc).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');%></td>
+                                    <td style="white-space:nowrap; padding: 7px">
+                                        <div class="badge <%=(bet_minigame[i].status == 1) ? 'badge-success' : 'badge-danger'%> text-uppercase font-weight-bold" ;="" style="padding: 5px 5px"> <%=(bet_minigame[i].status == 1) ? "Đã thanh toán" : "Thua"%> </div>
+                                    </td>
+                                <% } %>
+                                <td style="white-space:nowrap; padding: 7px"><%=bet_minigame[i].time%></td>
+                            </tr>
+                <% } else { %>
+                    <tr>
+                        <td style="white-space:nowrap; padding: 7px"><%=bet_minigame[i].name_user%></td>
+                        <td style="white-space:nowrap; padding: 7px"><%=String(bet_minigame[i].so_tien_cuoc).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');%></td>
+                        <td style="white-space:nowrap; padding: 7px">Chẵn lẻ</td>
+                        <td style="white-space:nowrap; padding: 7px"><%=(bet_minigame[i].chon == 0) ? "Chẵn" : "Lẻ"%></td>
+                        <% if (bet_minigame[i].status == 0) { %>
+                            <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                            <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                            <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                        <% } else { %>
+                            <td style="white-space:nowrap; padding: 7px">
+                                <%=(bet_minigame[i].ket_qua < 10) ? "0" + bet_minigame[i].ket_qua : bet_minigame[i].ket_qua%>
+                            </td>
+                            <td style="white-space:nowrap; padding: 7px"><%=String(bet_minigame[i].nhan_duoc).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');%></td>
+                            <td style="white-space:nowrap; padding: 7px">
+                                <div class="badge <%=(bet_minigame[i].status == 1) ? 'badge-success' : 'badge-danger'%> text-uppercase font-weight-bold" ;="" style="padding: 5px 5px"> <%=(bet_minigame[i].status == 1) ? "Đã thanh toán" : "Thua"%> </div>
+                            </td>
+                        <% } %>
+                        <td style="white-space:nowrap; padding: 7px"><%=bet_minigame[i].time%></td>
+                    </tr>
+                <% }}} else { %>
+                    <tr>
+                        <td colspan="9" class="text-center">Chưa thực hiện giao dịch nào</td>
+                    </tr>
+                <% } %>
             </tbody>
         </table>
     </div>
@@ -67,11 +81,11 @@
     <div class="col offset-lg-8 col text-dark" id="darkMode6">
         <label>Bản ghi:</label>
         <select id="record" class="form-control">
-        <option value="10">10 bản ghi</option>
-        <option value="20">20 bản ghi</option>
-        <option value="30">30 bản ghi</option>
-        <option value="50">50 bản ghi</option>
-        <option value="100">100 bản ghi</option>
+        <option value="0">10 bản ghi</option>
+        <option value="1">20 bản ghi</option>
+        <option value="2">30 bản ghi</option>
+        <option value="3">50 bản ghi</option>
+        <option value="4">100 bản ghi</option>
       </select>
     </div>
 </div>
