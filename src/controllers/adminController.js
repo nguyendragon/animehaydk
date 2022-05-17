@@ -47,13 +47,43 @@ const getPageMember1 = async(req, res) => {
     return res.render('manage/index.ejs', { temp, topNap, orders_list, giai_doan, orders_waiting, totalRed, totalGreen, totalViolet, totalNumber, totalNumber0, totalNumber1, totalNumber2, totalNumber3, totalNumber4, totalNumber5, totalNumber6, totalNumber7, totalNumber8, totalNumber9 });
 }
 
+const getPageMiniGame = async(req, res) => {
+    const [minigame] = await connection.execute('SELECT * FROM `minigame` ORDER BY `id` DESC LIMIT 2', []);
+
+    const [chan] = await connection.execute('SELECT SUM(so_tien_cuoc) as totalChan FROM `bet_minigame` WHERE `chon` = 0 AND `status` = 0', []);
+    const [le] = await connection.execute('SELECT SUM(so_tien_cuoc) as totalLe FROM `bet_minigame` WHERE `chon` = 1 AND `status` = 0', []);
+    const [tai] = await connection.execute('SELECT SUM(so_tien_cuoc) as totalTai FROM `bet_minigame` WHERE `chon` = 2 AND `status` = 0', []);
+    const [xiu] = await connection.execute('SELECT SUM(so_tien_cuoc) as totalXiu FROM `bet_minigame` WHERE `chon` = 3 AND `status` = 0', []);
+
+    const [chanTai] = await connection.execute('SELECT SUM(so_tien_cuoc) as totalChan FROM `bet_minigame` WHERE `chon` = 4 AND `status` = 0', []);
+    const [chanXiu] = await connection.execute('SELECT SUM(so_tien_cuoc) as totalLe FROM `bet_minigame` WHERE `chon` = 5 AND `status` = 0', []);
+    const [leTai] = await connection.execute('SELECT SUM(so_tien_cuoc) as totalTai FROM `bet_minigame` WHERE `chon` = 6 AND `status` = 0', []);
+    const [leXiu] = await connection.execute('SELECT SUM(so_tien_cuoc) as totalXiu FROM `bet_minigame` WHERE `chon` = 7 AND `status` = 0', []);
+
+    const [listKQ0] = await connection.execute('SELECT * FROM `minigame` WHERE `ket_qua` != 0 ORDER BY `id` DESC LIMIT 10', []);
+
+    const [listKQMiniGame] = await connection.execute('SELECT `name_user`, `chon`, `so_tien_cuoc`, `permission`, `time` FROM `bet_minigame` WHERE `status` = 0 AND `permission` = "user"', []);
+    const [temp] = await connection.execute('SELECT * FROM `temp`', []);
+    return res.render('manage/minigame.ejs', { minigame, chan, le, tai, xiu, chanTai, chanXiu, leTai, leXiu, listKQ0, listKQMiniGame, temp });
+}
+
 const createResult = async(req, res) => {
     const result = req.body.result;
-    if (result.length > 5 && result.length < 7) {
-        await connection.execute('UPDATE `temp` SET `ket_qua` = ? ', [result]);
-        res.end('{"message": 1}');
+    const resultMini = req.body.resultMini;
+    if (result) {
+        if (result.length > 5 && result.length < 7) {
+            await connection.execute('UPDATE `temp` SET `ket_qua` = ? ', [result]);
+            return res.end('{"message": 1}');
+        } else {
+            return res.end('{"message": "error"}');
+        }
     } else {
-        res.end('{"message": "error"}');
+        if (resultMini.length >= 0 && resultMini <= 99) {
+            await connection.execute('UPDATE `temp` SET `minigame` = ? ', [resultMini]);
+            return res.end('{"message": 1}');
+        } else {
+            return res.end('{"message": "error"}');
+        }
     }
 }
 
@@ -460,5 +490,6 @@ module.exports = {
     methodCreateBonus,
     methodSettings,
     methodSettingBank,
-    settingSale
+    settingSale,
+    getPageMiniGame
 }

@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card border-info">
+            <div class="card-header bg-info text-light border-seccond text-center font-weight-bold"><span class="fas fa-history"></span> KẾT QUẢ</div>
+            <div class="card-body text-light bg-dark" id="cardBodyKetQua">
+                <p class="card-text">
+
+                    Mã phiên: <span id="idCsmm" class="font-weight-bold text-danger">#<%=minigame[0].ma_phien%></span><br> 
+                    Kết quả trước đó: <span class="text-danger font-weight-bold" id="result"><%=minigame[1].ket_qua%></span><br> 
+                    Thời gian còn: <span class="text-danger font-weight-bold"><span id="seccond">0</span> giây</span>
+                    <img id="loadding" style="margin-left: 3px;" src="/images/loading2.gif" alt="" width="auto" height="20px" hidden=""><br> 
+                    Chẵn: <span id="goldChan" class="font-weight-bold text-danger" data-money="<%=(chan[0].totalChan) ? chan[0].totalChan : 0 %>">0</span>                    
+                    - Lẻ: <span id="goldLe" class="font-weight-bold text-primary" data-money="<%=(le[0].totalLe) ? le[0].totalLe : 0 %>">0</span><br> 
+                    Tài: <span id="goldTai" class="font-weight-bold text-danger" data-money="<%=(tai[0].totalTai) ? tai[0].totalTai : 0 %>">0</span> 
+                    - Xỉu: <span id="goldXiu" class="font-weight-bold text-primary" data-money="<%=(xiu[0].totalXiu) ? xiu[0].totalXiu : 0 %>">0</span><br>
+                </p>
+                <p style="margin-bottom: 7px;">
+                    CL:
+                    <span id="resultCL">
+                    <% if (listKQ0.length > 0) { 
+                            for (var i = listKQ0.length - 1; i >= 0; i--) {
+                            if (listKQ0[i].ket_qua % 2 == 0)  { %>
+                    <span class="rounded-circle bg-info text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">C</span>
+                    <% } else { %>
+                    <span class="rounded-circle bg-warning text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">L</span>
+                    <% }}} %>
+                    </span>
+                </p>
+                <p style="margin-bottom: 7px;">
+                    TX: <span id="resultTX">
+                    <% if (listKQ0.length > 0) { 
+                            for (var i = listKQ0.length - 1; i >= 0; i--) {
+                            if (listKQ0[i].ket_qua <= 49)  { %>
+                    <span class="rounded-circle bg-danger text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">X</span>
+                    <% } else { %>
+                    <span class="rounded-circle bg-success text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">T</span>
+                    <% }}} %>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

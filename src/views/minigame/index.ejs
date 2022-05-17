@@ -56,10 +56,10 @@
   </div>
   <div>
     <h5 class="text-center mt-4 text-dark" style="margin: 0px;" id="darkMode1">HỆ THỐNG MINI GAME</h5>
-    <p class="text-center text-dark" style="margin-bottom: 5px;" id="darkMode2">Được đảm bảo uy tín từ <br>
+    <!-- <p class="text-center text-dark" style="margin-bottom: 5px;" id="darkMode2">Được đảm bảo uy tín từ <br>
       <span class="font-weight-bold">Youtuber
         <span id="content">View6sao TV</span>
-      </span>
+      </span> -->
     </p>
     <hr style="width: 15%; height: 1px" class="bg-danger">
   </div>
@@ -83,17 +83,17 @@
                   <i class="fa fa-coins"></i>
                 </div>
               </span>
-              <input class="form-control py-2 border-left-0 border" style="font-weight: bold; color: green" type="search" value="<%= (checkLogin == true) ? String(rows[0].money).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') : 0 %>" id="goldUser" readonly="">
+              <input class="form-control py-2 border-left-0 border" style="font-weight: bold; color: green;z-index: 0;" type="search" value="<%= (checkLogin == true) ? String(rows[0].money).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') : 0 %>" id="goldUser" readonly="">
             </div>
             <form id="form">
               <div class="input-group form-group">
                 <span class="input-group-prepend" style="border-right: 1px solid red;">
-                  <div class="input-group-text bg-light border-right-1 changeTheme" style="color: red; padding: 6px 10px"><i class="fa fa-gamepad"></i></div>
+                  <div class="input-group-text bg-light border-right-1 changeTheme" style="color: red; padding: 6px 10px;"><i class="fa fa-gamepad"></i></div>
                 </span>
-                <select class="form-control py-2 border-left-0 border" style="color: red" id="type" name="type">
+                <select class="form-control py-2 border-left-0 border" style="color: red;z-index: 0;" id="type" name="type">
                   <option value="0" selected="">Chẵn lẻ - Tài xỉu (10tr ăn 19tr)</option>
-                  <!-- <option value="4">Xiên (10tr ăn 32tr)</option>
-                                    <option value="2">Dự đoán kết quả (10tr ăn 700tr)</option> -->
+                  <option value="1">Xiên (10tr ăn 32tr)</option>
+                  <!-- <option value="2">Dự đoán kết quả (10tr ăn 700tr)</option> -->
                 </select>
               </div>
               <label>Kết quả dự đoán:</label>
@@ -103,7 +103,7 @@
                   <div class="input-group-text bg-light border-right-1 changeTheme"><i class="fa fa-gavel"></i>
                   </div>
                 </span>
-                <input class="form-control py-2 border-left-0 border" style="font-weight: bold;" type="text" value="" id="gold" placeholder="Nhập số tiền đặt cược" data-money="0">
+                <input class="form-control py-2 border-left-0 border" style="font-weight: bold;z-index: 0;" type="text" value="" id="gold" placeholder="Nhập số tiền đặt cược" data-money="0">
               </div>
 
             </form>
@@ -129,7 +129,7 @@
 
     <div class="row m-4">
       <div class="col text-center">
-        <button class="btn btn-sm btn-danger font-weight-bold text-uppercase" type="button" onclick="nhanvang();"><span class="fas fa-coins"></span> Nhận vàng VIP</button>
+        <!-- <button class="btn btn-sm btn-danger font-weight-bold text-uppercase" type="button" onclick="nhanvang();"><span class="fas fa-coins"></span> Nhận vàng VIP</button> -->
         <a class="btn btn-sm btn-primary font-weight-bold text-uppercase collapsed showBoxChat" data-toggle="collapse" href="#anboxchat" role="button" aria-expanded="true" aria-controls="anboxchat">
           <span class="iconChange fas fa-eye-slash"></span> Ẩn chat
         </a>
@@ -144,48 +144,5 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
   <script src="/minigame/js/main.js"></script>
-  <script>
-    var numShown = 10; // Initial rows shown & index
-    // var numMore = 50; // Increment
-
-    var $table = $('table').find('tbody'); // tbody containing all the rows
-    var numRows = $table.find('tr').length; // Total # rows
-
-    $(function() {
-      // Hide rows and add clickable div
-      $table.find('tr:gt(' + (numShown - 1) + ')').hide().end();
-
-      $('#record').change(function() {
-        var select = $(this).find(':selected').val();
-        var arr = [10, 20, 30, 50, 100];
-        var numMore = arr[select];
-
-        switch (numMore) {
-            case 10:
-                $table.find('tr:lt(' + 10 + ')').show();
-                $table.find('tr:gt(' + (10 - 1) + ')').hide().end();
-                break;
-            case 20:
-                $table.find('tr:lt(' + 20 + ')').show();
-                $table.find('tr:gt(' + (20 - 1) + ')').hide().end();
-                break;
-            case 30:
-                $table.find('tr:lt(' + 30 + ')').show();
-                $table.find('tr:gt(' + (30 - 1) + ')').hide().end();
-                break;
-            case 50:
-                $table.find('tr:lt(' + 50 + ')').show();
-                $table.find('tr:gt(' + (50 - 1) + ')').hide().end();
-                break;
-            case 100:
-                $table.find('tr:lt(' + 100 + ')').show();
-                break;
-            default:
-                break;
-        }
-      });
-
-    });
-  </script>
 
 </html>

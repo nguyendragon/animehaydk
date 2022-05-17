@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trang quản lý</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/css/pages__parity.css">
+    <link rel="stylesheet" href="/css/vantjs.css">
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/admin.css">
+    <style>
+        .active {
+            background-color: #007bff !important;
+        }
+        /* Chrome, Safari, Edge, Opera */
+        
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        /* Firefox */
+        
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+        <%- include('nav') %>
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0">Dashboard V2</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon bg-danger elevation-1">
+                                        C
+                                    </span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Chẵn</span>
+                                        <span totalMoney="<%=chan[0].totalChan ? chan[0].totalChan : 0 %>" class="info-box-number chan"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix hidden-md-up"></div>
+
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon elevation-1" style="background-color: #8e44ad;">
+                                        L
+                                    </span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Lẻ</span>
+                                        <span totalMoney="<%=(le[0].totalLe) ? le[0].totalLe : 0 %>" class="info-box-number le"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon bg-success elevation-1">
+                                        T
+                                    </span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Tài</span>
+                                        <span totalMoney="<%=(tai[0].totalTai) ? tai[0].totalTai : 0 %>" class="info-box-number tai"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-info elevation-1">
+                                    X
+                                    </span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Xỉu</span>
+                                        <span totalMoney="<%=(xiu[0].totalXiu) ? xiu[0].totalXiu : 0 %>" class="info-box-number xiu"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon elevation-1 bg-primary">CT</span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Chẵn - Tài</span>
+                                        <span totalMoney="<%=(chanTai[0].totalChan) ? chanTai[0].totalChan : 0 %>" class="info-box-number chantai"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix hidden-md-up"></div>
+
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon elevation-1 bg-primary">CX</span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Chẵn - Xỉu</span>
+                                        <span totalMoney="<%=(chanXiu[0].totalLe) ? chanXiu[0].totalLe : 0 %>" class="info-box-number chanxiu"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon elevation-1 bg-primary">LT</span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Lẻ - Tài</span>
+                                        <span totalMoney="<%=(leTai[0].totalTai) ? leTai[0].totalTai : 0 %>" class="info-box-number letai"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3">
+                                <div class="info-box">
+                                    <span class="info-box-icon elevation-1 bg-primary">LX</span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Lẻ - Xỉu</span>
+                                        <span totalMoney="<%=(leXiu[0].totalXiu) ? leXiu[0].totalXiu : 0 %>" class="info-box-number lexiu"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Main row -->
+                        <div class="row">
+                            <!-- Left col -->
+                            <div class="col-md-12">
+                                <!-- MAP & BOX PANE -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card direct-chat direct-chat-warning">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Thống kê</h3>
+
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="direct-chat-messages" style="min-height: 520px;">
+                                                    <% if (listKQMiniGame.length > 0) { 
+                                                        for (var i = 0; i < listKQMiniGame.length; i++) {
+                                                        %>
+                                                        <div class="direct-chat-msg">
+                                                            <div class="direct-chat-infos clearfix">
+                                                            <span class="direct-chat-name float-left"><%=listKQMiniGame[i].name_user%></span>
+                                                            <span class="direct-chat-timestamp float-right text-primary"><%=listKQMiniGame[i].time%></span></div>
+                                                            <img class="direct-chat-img" src="/images/myimg.png" alt="message user image">
+                                                            <div class="direct-chat-text" style="background-color: #3498db;"><%=(listKQMiniGame[i].chon == 0) ? "Chẵn" : (listKQMiniGame[i].chon == 1) ? "Lẻ" : (listKQMiniGame[i].chon == 2) ? "Tài" : (listKQMiniGame[i].chon == 3) ? "Xỉu" : (listKQMiniGame[i].chon == 4) ? "Chẵn Tài" : (listKQMiniGame[i].chon == 5) ? "Chẵn Xỉu" : (listKQMiniGame[i].chon == 6) ? "Lẻ Tài" : "Lẻ Xỉu"%> (<%=String(listKQMiniGame[i].so_tien_cuoc).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')%>)</div>
+                                                        </div>
+                                                    <% }} %>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%- include('temp/info'); -%>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Điều chỉnh kết quả [0-99]</h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label for="editResult" id="ketQua">Kết quả: <%=temp[0].minigame%></label>
+                                                        <input type="number" class="form-control" id="editResult" value="" placeholder="Enter the number">
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer" style="text-align: center;">
+                                                    <button type="submit" class="btn btn-primary start-minigame">Triển khai</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+    </div>
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="/dist/js/adminlte.js"></script>
+    <script src="/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="/plugins/raphael/raphael.min.js"></script>
+    <script src="/js/admin.js"></script>
+    <script src="/js/socketAdmin.js"></script>
+</body>
+
+</html>

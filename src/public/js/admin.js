@@ -18,146 +18,10 @@ function cownDownTimer() {
         var now = new Date().getTime();
         var distance = countDownDate - now;
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var minute = Math.ceil(minutes / 20 - 1);
-        if (minutes == 59) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 58) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 57) {
-            var minute = Math.ceil(minutes / 20 - 3);
-        }
-        if (minutes == 56) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 55) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 54) {
-            var minute = Math.ceil(minutes / 20 - 3);
-        }
-        if (minutes == 53) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 52) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 51) {
-            var minute = Math.ceil(minutes / 20 - 3);
-        }
-        if (minutes == 50) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 49) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 48) {
-            var minute = Math.ceil(minutes / 20 - 3);
-        }
-        if (minutes == 47) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 46) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 45) {
-            var minute = Math.ceil(minutes / 20 - 3);
-        }
-        if (minutes == 44) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 43) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 42) {
-            var minute = Math.ceil(minutes / 20 - 3);
-        } else if (minutes == 41) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        }
-        if (minutes == 40) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 39) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 38) {
-            var minute = Math.ceil(minutes / 20);
-        }
-        if (minutes == 37) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 36) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 35) {
-            var minute = Math.ceil(minutes / 20);
-        }
-        if (minutes == 34) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 33) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 32) {
-            var minute = Math.ceil(minutes / 20);
-        }
-        if (minutes == 31) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 30) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 29) {
-            var minute = Math.ceil(minutes / 20);
-        }
-        if (minutes == 28) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 27) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 26) {
-            var minute = Math.ceil(minutes / 20);
-        }
-        if (minutes == 25) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 24) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 23) {
-            var minute = Math.ceil(minutes / 20);
-        }
-        if (minutes == 22) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 21) {
-            var minute = Math.ceil(minutes / 20 - 2);
-        } else if (minutes == 20) {
-            var minute = Math.ceil(minutes / 20 + 1);
-        } else if (minutes == 19) {
-            var minute = Math.ceil(minutes / 20);
-        } else if (minutes == 18) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 17) {
-            var minute = Math.ceil(minutes / 20 + 1);
-        } else if (minutes == 16) {
-            var minute = Math.ceil(minutes / 20);
-        } else if (minutes == 15) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 14) {
-            var minute = Math.ceil(minutes / 20 + 1);
-        } else if (minutes == 13) {
-            var minute = Math.ceil(minutes / 20);
-        } else if (minutes == 12) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 11) {
-            var minute = Math.ceil(minutes / 20 + 1);
-        } else if (minutes == 10) {
-            var minute = Math.ceil(minutes / 20);
-        } else if (minutes == 9) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 8) {
-            var minute = Math.ceil(minutes / 20 + 1);
-        } else if (minutes == 7) {
-            var minute = Math.ceil(minutes / 20);
-        } else if (minutes == 6) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 5) {
-            var minute = Math.ceil(minutes / 20 + 1);
-        } else if (minutes == 4) {
-            var minute = Math.ceil(minutes / 20);
-        } else if (minutes == 3) {
-            var minute = Math.ceil(minutes / 20 - 1);
-        } else if (minutes == 2) {
-            var minute = Math.ceil(minutes / 20 + 1);
-        } else if (minutes == 1) {
-            var minute = Math.ceil(minutes / 20);
-        } else if (minutes == 0) {
-            var minute = Math.ceil(minutes / 20);
-        }
+        var minute = Math.ceil(minutes / 20 - 2);
         var seconds1 = Math.floor((distance % (1000 * 60)) / 10000);
         var seconds2 = Math.floor((distance % (1000 * 60)) / 1000);
-        $('.time-sub:eq(0)').html("0");
-        $('.time-sub:eq(1)').html(minute);
-        $('.time-sub:eq(2)').html(seconds1);
-        $('.time-sub:eq(3)').html(seconds2 % 10);
+        $('#seccond').html(seconds2);
     }, 0);
 };
 
@@ -202,3 +66,131 @@ $('.start-order').click(function(e) {
     }
 
 });
+
+$('.start-minigame').click(function(e) {
+    e.preventDefault();
+    const result = $('#editResult').val();
+    console.log(result);
+    const checkNumber = $.isNumeric(result);
+    if (result != "" && result >= 0 && result <= 99 && checkNumber == true) {
+        $.ajax({
+            type: "POST",
+            url: "/manage/admin/index",
+            data: {
+                resultMini: result,
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.message == 1) {
+                    $('#ketQua').text('Kết quả: ' + result);
+                    $('#editResult').val("");
+                    Swal.fire(
+                        'Good job!',
+                        'Khởi tạo thành công!',
+                        'success'
+                    );
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    });
+                }
+            }
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!'
+        });
+    }
+
+});
+
+
+function formatMoney2(money) {
+    return String(money).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
+
+
+function loadMoney(ms) {
+    $('#goldNohu').each(function() {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).attr('data-money')
+        }, {
+            duration: ms,
+            easing: 'swing',
+            step: function(now) {
+                $(this).text(String(Math.ceil(now)).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')); //Math.ceil(now)
+            }
+        });
+    });
+
+    $('#goldTai').each(function() {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).attr('data-money')
+        }, {
+            duration: ms,
+            easing: 'swing',
+            step: function(now) {
+                $(this).text(String(Math.ceil(now)).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')); //Math.ceil(now)
+            }
+        });
+    });
+
+    $('#goldXiu').each(function() {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).attr('data-money')
+        }, {
+            duration: ms,
+            easing: 'swing',
+            step: function(now) {
+                $(this).text(String(Math.ceil(now)).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')); //Math.ceil(now)
+            }
+        });
+    });
+
+    $('#goldChan').each(function() {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).attr('data-money')
+        }, {
+            duration: ms,
+            easing: 'swing',
+            step: function(now) {
+                $(this).text(String(Math.ceil(now)).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')); //Math.ceil(now)
+            }
+        });
+    });
+
+    $('#goldLe').each(function() {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).attr('data-money')
+        }, {
+            duration: ms,
+            easing: 'swing',
+            step: function(now) {
+                $(this).text(String(Math.ceil(now)).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')); //Math.ceil(now)
+            }
+        });
+    });
+    const chan = formatMoney2($('.chan').attr('totalMoney'));
+    const le = formatMoney2($('.le').attr('totalMoney'));
+    const tai = formatMoney2($('.tai').attr('totalMoney'));
+    const xiu = formatMoney2($('.xiu').attr('totalMoney'));
+    const chantai = formatMoney2($('.chantai').attr('totalMoney'));
+    const chanxiu = formatMoney2($('.chanxiu').attr('totalMoney'));
+    const letai = formatMoney2($('.letai').attr('totalMoney'));
+    const lexiu = formatMoney2($('.lexiu').attr('totalMoney'));
+
+    $('.chan').text(chan);
+    $('.le').text(le);
+    $('.tai').text(tai);
+    $('.xiu').text(xiu);
+    $('.chantai').text(chantai);
+    $('.chanxiu').text(chanxiu);
+    $('.letai').text(letai);
+    $('.lexiu').text(lexiu);
+}
+
+loadMoney(250);

@@ -33,6 +33,8 @@ const getPageMiniGame = async(req, res) => {
     const [tai] = await connection.execute('SELECT SUM(so_tien_cuoc) as totalTai FROM `bet_minigame` WHERE `chon` = 2 AND `status` = 0', []);
     const [xiu] = await connection.execute('SELECT SUM(so_tien_cuoc) as totalXiu FROM `bet_minigame` WHERE `chon` = 3 AND `status` = 0', []);
 
+
+
     try {
         var token = jwt.verify(tokenUser, process.env.JWT_ACCESS_TOKEN);
         var phone_login = token.user.phone_login;
@@ -55,6 +57,15 @@ const joinBetMiniGame = async(req, res) => {
     // 1. Lẻ
     // 2. Tài
     // 3. Xỉu
+    // ----------
+    // 4. Chẵn - Tài
+    // 5. Chẵn - Xỉu
+    // 6. Lẻ - Tài
+    // 7. Lẻ - Xỉu
+
+    // type 
+    // 0. Chẵn lẻ tài xỉu
+    // 1. Xiên
 
     // - Request
     // 1. Thành công
@@ -64,8 +75,7 @@ const joinBetMiniGame = async(req, res) => {
     // - Database
     // 0. Chờ...
     // 1. Thành công 
-    // 2. 
-    // 3. 
+    // 2. Thất bại
 
 
     try {
@@ -75,16 +85,16 @@ const joinBetMiniGame = async(req, res) => {
         const phone_login = token.user.phone_login;
         const money = req.body.money;
         const join = req.body.join;
-        const [users] = await connection.execute('SELECT `money`, `name_user` FROM `users` WHERE `phone_login` = ? AND veri = 1', [phone_login]);
+        const [users] = await connection.execute('SELECT `money`, `name_user`, `lever` FROM `users` WHERE `phone_login` = ? AND veri = 1', [phone_login]);
         const [ma_phien] = await connection.execute('SELECT `ma_phien` FROM `minigame` WHERE `ket_qua` = ? LIMIT 1', [0]);
         if (users.length > 0) {
-            if (money >= 1000 && join >= 0 && join <= 3) {
+            if (money >= 1000 && join >= 0 && join <= 7) {
                 if (users[0].money - money >= 0) {
                     // sql tạo đơn
-                    const sql = 'INSERT INTO `bet_minigame` SET `phone_login` = ?,`name_user` = ?,`ma_phien` = ?,`chon` = ?, `ket_qua` = ?, `so_tien_cuoc` = ?, `nhan_duoc` = ?, `status` = ?, `time` = ? '
-                    await connection.execute(sql, [phone_login, users[0].name_user, ma_phien[0].ma_phien, join, 0, money, 0, 0, time]);
+                    const sql = 'INSERT INTO `bet_minigame` SET `phone_login` = ?,`name_user` = ?,`permission` = ?,`ma_phien` = ?,`chon` = ?, `ket_qua` = ?, `so_tien_cuoc` = ?, `nhan_duoc` = ?, `status` = ?, `time` = ? '
+                    await connection.execute(sql, [phone_login, users[0].name_user, users[0].lever, ma_phien[0].ma_phien, join, 0, money, 0, 0, time]);
                     await connection.execute('UPDATE `users` SET `money` = ? WHERE `phone_login` = ? AND veri = 1 ', [users[0].money - money, phone_login]);
-                    return res.end(`{"message": 1, "money": ${users[0].money - money}, "name_user": "${users[0].name_user}", "join": ${join}, "money_join": ${money}, "time": "${time}"}`);
+                    return res.end(`{"message": 1, "money": ${users[0].money - money}, "name_user": "${users[0].name_user}", "join": ${join}, "money_join": ${money}, "level": "${users[0].lever}","time": "${time}"}`);
                 } else {
                     return res.end('{"message": 2}');
                 }
@@ -100,27 +110,51 @@ const joinBetMiniGame = async(req, res) => {
 }
 
 const reload = async(req, res) => {
+    var type = req.body.type;
     var tokenUser = req.cookies.token;
-    var token = jwt.verify(tokenUser, process.env.JWT_ACCESS_TOKEN);
-    var phone_login = token.user.phone_login;
+    if (tokenUser) {
+        var token = jwt.verify(tokenUser, process.env.JWT_ACCESS_TOKEN);
+        var phone_login = token.user.phone_login;
+    } else {
+        var phone_login = "ihuwdiow";
+    }
     const [users] = await connection.execute('SELECT `money` FROM `users` WHERE `phone_login` = ?  ', [phone_login]);
+    if (type == "reload") {
+        var [bet_minigames] = await connection.execute('SELECT * FROM `bet_minigame` ORDER BY `id` DESC LIMIT 100', []);
+    } else if (type == "my") {
+        if (users.length > 0) {
+            var [bet_minigames] = await connection.execute('SELECT * FROM `bet_minigame` WHERE `phone_login` = ? ORDER BY `id` DESC LIMIT 100', [phone_login]);
+        } else {
+            return res.end(`{"message": "error"}`);
+        }
+    }
+    const name_user = bet_minigames.map((name_user) => name_user.name_user);
+    const ma_phien = bet_minigames.map((ma_phien) => ma_phien.ma_phien);
+    const chon = bet_minigames.map((chon) => chon.chon);
+    const ket_qua = bet_minigames.map((ket_qua) => ket_qua.ket_qua);
+    const so_tien_cuoc = bet_minigames.map((so_tien_cuoc) => so_tien_cuoc.so_tien_cuoc);
+    const nhan_duoc = bet_minigames.map((nhan_duoc) => nhan_duoc.nhan_duoc);
+    const status = bet_minigames.map((status) => status.status);
+    const time = bet_minigames.map((time) => time.time);
     if (users.length > 0) {
-        const [bet_minigames] = await connection.execute('SELECT * FROM `bet_minigame` ORDER BY `id` DESC LIMIT 100', []);
-        const name_user = bet_minigames.map((name_user) => name_user.name_user);
-        const ma_phien = bet_minigames.map((ma_phien) => ma_phien.ma_phien);
-        const chon = bet_minigames.map((chon) => chon.chon);
-        const ket_qua = bet_minigames.map((ket_qua) => ket_qua.ket_qua);
-        const so_tien_cuoc = bet_minigames.map((so_tien_cuoc) => so_tien_cuoc.so_tien_cuoc);
-        const nhan_duoc = bet_minigames.map((nhan_duoc) => nhan_duoc.nhan_duoc);
-        const status = bet_minigames.map((status) => status.status);
-        const time = bet_minigames.map((time) => time.time);
-        return res.end(`{"money": 
+        if (type == "reload") {
+            return res.end(`{"money": 
         ${users[0].money}, "name_user": "${name_user}", "ma_phien": 
         "${ma_phien}","chon": "${chon}","ket_qua": 
         "${ket_qua}","so_tien_cuoc": "${so_tien_cuoc}","nhan_duoc": 
         "${nhan_duoc}","status": "${status}","time": "${time}" }`);
+        } else if (type == "my") {
+            return res.end(`{"money": 
+        ${users[0].money}, "name_user": "${name_user}", "ma_phien": 
+        "${ma_phien}","chon": "${chon}","ket_qua": 
+        "${ket_qua}","so_tien_cuoc": "${so_tien_cuoc}","nhan_duoc": 
+        "${nhan_duoc}","status": "${status}","time": "${time}" }`);
+        }
     } else {
-        return res.end('{"money": "error"}');
+        return res.end(`{"name_user": "${name_user}", "ma_phien": 
+        "${ma_phien}","chon": "${chon}","ket_qua": 
+        "${ket_qua}","so_tien_cuoc": "${so_tien_cuoc}","nhan_duoc": 
+        "${nhan_duoc}","status": "${status}","time": "${time}" }`);
     }
 }
 

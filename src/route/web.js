@@ -16,7 +16,7 @@ const initWebRoutes = (app) => {
     // mini game
     router.get('/index', miniGameController.getPageMiniGame);
     router.post('/minigame/api/v1', middlewareController, miniGameController.joinBetMiniGame);
-    router.post('/minigame/api_v1', middlewareController, miniGameController.reload);
+    router.post('/minigame/api_v1', miniGameController.reload);
 
 
     // Login
@@ -104,6 +104,7 @@ const initWebRoutes = (app) => {
 
     // Admin
     router.get('/manage/admin/index', adminController.middlewareAdminController, adminController.getPageMember1);
+    router.get('/manage/admin/minigame', adminController.middlewareAdminController, adminController.getPageMiniGame);
     router.post('/manage/admin/index', adminController.middlewareAdminController, adminController.createResult);
 
 

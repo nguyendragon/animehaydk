@@ -25,7 +25,7 @@ socket.on('data-server', function(msg) {
                 `</div>` +
                 `<img class="direct-chat-img" src="/images/myimg.png" alt="message user image">` +
                 `<div class="direct-chat-text" style="background-color: #1eb93d;">` +
-                `Tham gia xanh (${msg.totalMoney})` +
+                `Tham gia xanh (${msg.totalmoney})` +
                 `</div>` +
                 `</div>`
             );
@@ -169,6 +169,95 @@ socket.on('data-server', function(msg) {
                 `</div>` +
                 `</div>`
             );
+        }
+    }
+});
+
+
+
+const countMoney = (realmoney, type) => {
+    var total = Number($(`#${type}`).attr('data-money'));
+    var result = total + realmoney;
+    $(`#${type}`).attr('data-money', result)
+    $(`#${type}`).each(function() {
+        $(this).prop('Counter', total).animate({
+            Counter: $(this).attr('data-money')
+        }, {
+            duration: 250,
+            easing: 'swing',
+            step: function(now) {
+                $(this).text(String(Math.ceil(now)).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')); //Math.ceil(now)
+            }
+        });
+    });
+}
+
+const countMoney2 = (realmoney, type) => {
+    var total = Number($(`.${type}`).attr('totalmoney'));
+    var result = total + realmoney;
+    $(`.${type}`).attr('totalmoney', result)
+    $(`.${type}`).each(function() {
+        $(this).prop('Counter', total).animate({
+            Counter: $(this).attr('totalmoney')
+        }, {
+            duration: 250,
+            easing: 'swing',
+            step: function(now) {
+                $(this).text(String(Math.ceil(now)).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')); //Math.ceil(now)
+            }
+        });
+    });
+}
+
+socket.on('data-minigame-server', function(msg) {
+    // in ra cầu mới
+    // 0. Chẵn
+    // 1. Lẻ
+    // 2. Tài
+    // 3. Xỉu
+    if (msg.time) {
+        const arrGold = ['goldChan', 'goldLe', 'goldTai', 'goldXiu']
+        const arrGold2 = ['chan', 'le', 'tai', 'xiu', 'chantai', 'chanxiu', 'letai', 'lexiu']
+        countMoney(Number(msg.money_join), arrGold[msg.join]);
+        countMoney2(Number(msg.money_join), arrGold2[msg.join]);
+        if (msg.level == 'user') {
+            $('.direct-chat-messages').append(`
+                <div class="direct-chat-msg">
+                    <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-name float-left">${msg.name_user}</span>
+                    <span class="direct-chat-timestamp float-right text-primary">${msg.time}</span></div>
+                    <img class="direct-chat-img" src="/images/myimg.png" alt="message user image">
+                    <div class="direct-chat-text" style="background-color: #3498db;">${(msg.join == 0) ? "Chẵn" : (msg.join == 1) ? "Lẻ" : (msg.join == 2) ? "Tài" : (msg.join == 3) ? "Xỉu" : (msg.join == 4) ? "Chẵn Tài" : (msg.join == 5) ? "Chẵn Xỉu" : (msg.join == 6) ? "Lẻ Tài" : "Lẻ Xỉu" } (${formatMoney2(msg.money_join)})</div>
+                </div>
+            `);
+        }
+    }
+    if (msg.data) {
+        $('.direct-chat-messages').html("");
+        $('#ketQua').html('Kết quả: 0');
+        $(".chan, .le, .tai, .xiu, .chantai, .chanxiu, .letai, .lexiu").attr('totalmoney', 0);
+        $("#goldChan, #goldLe, #goldTai, #goldXiu").attr('data-money', 0);
+        $("#goldChan, #goldLe, #goldTai, #goldXiu").text('0');
+        $(".chan, .le, .tai, .xiu, .chantai, .chanxiu, .letai, .lexiu").text('0');
+        if (msg.data2 % 2 == 0) {
+            $('#resultCL .rounded-circle:eq(0)').remove();
+            $('#resultCL').append('<span class="rounded-circle bg-info text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">C</span>');
+        } else {
+            $('#resultCL .rounded-circle:eq(0)').remove();
+            $('#resultCL').append('<span class="rounded-circle bg-warning text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">L</span>');
+        }
+        if (msg.data2 <= 49) {
+            $('#resultTX .rounded-circle:eq(0)').remove();
+            $('#resultTX').append('<span class="rounded-circle bg-danger text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">X</span>');
+        } else {
+            $('#resultTX .rounded-circle:eq(0)').remove();
+            $('#resultTX').append('<span class="rounded-circle bg-success text-white text-center" style="padding-right: 5px; padding-left: 5px; margin-right: 3px; display: inline-block; width: 21px">T</span>');
+        }
+        $('#idCsmm').html(`#${msg.data}`);
+        if (msg.data2 < 10) {
+            $('#result').html(`0${msg.data2}`);
+        } else {
+            $('#result').html(`${msg.data2}`);
         }
     }
 });

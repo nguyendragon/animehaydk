@@ -40,12 +40,33 @@
                                 <% } %>
                                 <td style="white-space:nowrap; padding: 7px"><%=bet_minigame[i].time%></td>
                             </tr>
-                <% } else { %>
+                <% } else if (bet_minigame[i].chon == 0 || bet_minigame[i].chon == 1) { %>
                     <tr>
                         <td style="white-space:nowrap; padding: 7px"><%=bet_minigame[i].name_user%></td>
                         <td style="white-space:nowrap; padding: 7px"><%=String(bet_minigame[i].so_tien_cuoc).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');%></td>
                         <td style="white-space:nowrap; padding: 7px">Chẵn lẻ</td>
                         <td style="white-space:nowrap; padding: 7px"><%=(bet_minigame[i].chon == 0) ? "Chẵn" : "Lẻ"%></td>
+                        <% if (bet_minigame[i].status == 0) { %>
+                            <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                            <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                            <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
+                        <% } else { %>
+                            <td style="white-space:nowrap; padding: 7px">
+                                <%=(bet_minigame[i].ket_qua < 10) ? "0" + bet_minigame[i].ket_qua : bet_minigame[i].ket_qua%>
+                            </td>
+                            <td style="white-space:nowrap; padding: 7px"><%=String(bet_minigame[i].nhan_duoc).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');%></td>
+                            <td style="white-space:nowrap; padding: 7px">
+                                <div class="badge <%=(bet_minigame[i].status == 1) ? 'badge-success' : 'badge-danger'%> text-uppercase font-weight-bold" ;="" style="padding: 5px 5px"> <%=(bet_minigame[i].status == 1) ? "Đã thanh toán" : "Thua"%> </div>
+                            </td>
+                        <% } %>
+                        <td style="white-space:nowrap; padding: 7px"><%=bet_minigame[i].time%></td>
+                    </tr>
+                <% } else { %>
+                    <tr>
+                        <td style="white-space:nowrap; padding: 7px"><%=bet_minigame[i].name_user%></td>
+                        <td style="white-space:nowrap; padding: 7px"><%=String(bet_minigame[i].so_tien_cuoc).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');%></td>
+                        <td style="white-space:nowrap; padding: 7px">Xiên</td>
+                        <td style="white-space:nowrap; padding: 7px"><%=(bet_minigame[i].chon == 4) ? "Chẵn - tài" : (bet_minigame[i].chon == 5) ? "Chẵn - xỉu" : (bet_minigame[i].chon == 6) ? "Lẻ - tài" : "Lẻ - Xỉu" %></td>
                         <% if (bet_minigame[i].status == 0) { %>
                             <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
                             <td style="white-space:nowrap; padding: 7px"><img style="margin-left: 10px;" src="/images/loading2.gif" alt="loading" width="auto" height="20px"></td>
@@ -67,6 +88,7 @@
                     </tr>
                 <% } %>
             </tbody>
+            <tbody id="lichsugdMe" class="text-dark"></tbody>
         </table>
     </div>
 </div>
@@ -75,7 +97,9 @@
         <label>Hiện thị:</label>
         <select id="isMe" class="form-control">
         <option value="0">Tất cả</option>
+        <% if (checkLogin == true) { %>
         <option value="1">Mình tôi</option>
+        <% } %>
       </select>
     </div>
     <div class="col offset-lg-8 col text-dark" id="darkMode6">
