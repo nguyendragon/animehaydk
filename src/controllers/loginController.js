@@ -165,8 +165,10 @@ const register = async(req, res) => {
 
 
     var timeCr = TimeCreate();
+    let pattern = /[^a-z0-9]/g;
+    let result = pattern.test(phone_signup);
 
-    if (phone_signup && ip && password_v1) {
+    if (phone_signup && result == false && ip && password_v1) {
         const [checkIP] = await connection.execute('SELECT `ip` FROM `users` WHERE `ip` = ?', [ip]);
         const [result] = await connection.execute("SELECT * FROM `users` WHERE `phone_login` = ? ", [phone_signup]);
 

@@ -427,13 +427,20 @@ const securityNikname = async(req, res) => {
     return res.render('member/security/nikname.ejs', { user });
 }
 
+function xoakytu(text1) {
+    const text = String(text1);
+    let text2 = text.replace(/[&\/\\#^+()$~%.'":*?<>{}!@]/g, '')
+    return text2;
+}
+
 const editNikname = async(req, res) => {
     var tokenUser = req.cookies.token;
     var token = jwt.verify(tokenUser, process.env.JWT_ACCESS_TOKEN);
     var phone_login = token.user.phone_login;
     var get_input = req.body.get_input;
+    const name = xoakytu(get_input);
     if (get_input.length <= 25) {
-        await connection.execute('UPDATE `users` SET `name_user` = ? WHERE `phone_login` = ?', [get_input, phone_login]);
+        await connection.execute('UPDATE `users` SET `name_user` = ? WHERE `phone_login` = ?', [name, phone_login]);
         res.end('{"message": 1}');
     } else {
         res.end('{"message": "error"}');

@@ -235,7 +235,9 @@ const handlingMini = async() => {
         }
         await connection.execute("UPDATE `bet_minigame` SET `nhan_duoc` = ?, `status` = 1 WHERE `status` = 0 AND `id` = ?", [nhan_duoc, listBetMiniGame[i].id]);
         const [listUser] = await connection.execute("SELECT `money` FROM `users` WHERE `phone_login` = ?", [listBetMiniGame[i].phone_login]);
-        await connection.execute("UPDATE `users` SET `money` = ? WHERE `phone_login` = ?", [listUser[0].money + nhan_duoc, listBetMiniGame[i].phone_login]);
+        if (listUser.length > 0) {
+            await connection.execute("UPDATE `users` SET `money` = ? WHERE `phone_login` = ?", [listUser[0].money + nhan_duoc, listBetMiniGame[i].phone_login]);
+        }
     }
 }
 

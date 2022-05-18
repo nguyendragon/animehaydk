@@ -19,6 +19,9 @@ const sendMessageAdmin = (io) => {
         socket.on('data-minigame-server', (msg) => {
             io.emit('data-minigame-server', msg);
         });
+        socket.on('chat-minigame', (msg) => {
+            io.emit('chat-minigame', msg);
+        });
         // socket.on("disconnect", () => {
         // console.log('a user disconnect ' + socket.id);
         // });

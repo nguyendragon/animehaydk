@@ -158,8 +158,16 @@ const reload = async(req, res) => {
     }
 }
 
+const chatMiniGame = (req, res) => {
+    const dummyString = "23 ,67 -09% 2  !@Dummy^Address* Text Nguyễn<>"
+    let finalString = dummyString.replace(/[&\/\\#^+()$~%.'":*?<>{}!@]/g, '')
+    console.log("Original String: " + dummyString)
+    console.log("Final String: " + finalString)
+}
+
 module.exports = {
     getPageMiniGame,
     joinBetMiniGame,
-    reload
+    reload,
+    chatMiniGame
 }

@@ -18,10 +18,17 @@ import mysql from 'mysql2/promise';
 // local
 const connection = mysql.createPool({
     host: 'localhost',
-    user: 'root',
-    password: '',
+    user: 'admin',
+    password: 'ADT6nba76qPbC0',
     database: 'minigame'
 });
+
+// const connection = mysql.createPool({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'minigame'
+// });
 
 // vps
 // const connection = mysql.createPool({

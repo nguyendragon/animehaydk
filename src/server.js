@@ -32,6 +32,13 @@ cron.schedule('*/1 * * * *', async() => {
     timeZone: 'Asia/Ho_Chi_Minh'
 });
 
+cron.schedule('3-39/4 * * * * *', async() => {
+    // await cronJob.botJoinMiniGame(io);
+}, {
+    scheduled: true,
+    timeZone: 'Asia/Ho_Chi_Minh'
+});
+
 // init route
 initWebRoutes(app);
 
